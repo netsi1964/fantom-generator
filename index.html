@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link href="/public/style.css" rel="stylesheet"> -->
+  <title data-translate="appTitle">Fantom Generator</title>
+  <link rel="icon" type="image/png" href="/assets/fantom-generator.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 pb-20">
+  <!-- Language Switcher -->
+  <div class="container mx-auto text-right mt-2 mb-2">
+    <label for="language-select" class="text-sm mr-2">Language:</label>
+    <select id="language-select" class="px-2 py-1 border border-gray-300 rounded-md text-sm">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="da">Dansk</option>
+    </select>
+  </div>
+
+  <!-- Render Style Selector -->
+  <div class="container mx-auto mt-4">
+    <label data-translate="renderStyleLabel" for="render-style-select" class="block text-sm font-medium text-gray-700">Render Style:</label>
+    <select id="render-style-select" name="render-style" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border">
+      <option value="Sketch">Sketch</option>
+      <option value="Realistic">Realistic</option>
+      <option value="Cartoon">Cartoon</option>
+      <option value="3D Model">3D Model</option>
+      <option value="Painting">Painting</option>
+    </select>
+  </div>
+
+  <h1 data-translate="appTitle" class="text-3xl font-bold underline text-center mt-4">
+    Fantom Generator
+  </h1>
+
+  <div id="case-info-container" class="container mx-auto mt-4 p-4 bg-white shadow rounded">
+    <h2 data-translate="caseInfoTitle" class="text-lg font-semibold text-gray-800 mb-3">Case Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label data-translate="caseTitleLabel" for="case-title" class="block text-sm font-medium text-gray-700">Title:</label>
+        <input type="text" id="case-title" name="case-title" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      </div>
+      <div>
+        <label data-translate="caseNumberLabel" for="case-number" class="block text-sm font-medium text-gray-700">Case/Journal #:</label>
+        <input type="text" id="case-number" name="case-number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      </div>
+      <div>
+        <label data-translate="caseDateLabel" for="case-date" class="block text-sm font-medium text-gray-700">Date:</label>
+        <input type="date" id="case-date" name="case-date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      </div>
+    </div>
+  </div>
+
+  <div id="parameter-sliders-container" class="container mx-auto mt-8 p-4 bg-white shadow rounded grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <!-- Sliders will be dynamically added here as grid items -->
+    <div class="mt-6 pt-4 border-t border-gray-200 col-span-full flex space-x-4">
+      <button data-translate="addCustomParamButton" id="add-parameter-button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+        Add Custom Parameter
+      </button>
+      <button data-translate="resetParamsButton" id="reset-parameters-button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Reset Default Parameters
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal or container for parameter management form -->
+  <div id="parameter-management-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Parameter Management</h3>
+      <!-- Form content will go here -->
+      <div id="parameter-form-container">
+        <!-- Form fields for name, shades -->
+      </div>
+      <div class="items-center px-4 py-3">
+          <button data-translate="saveButton" id="save-parameter-button" class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">Save</button>
+          <button data-translate="cancelButton" id="cancel-parameter-button" class="ml-2 px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300">Cancel</button>
+          <button data-translate="deleteButton" id="delete-parameter-button" class="hidden ml-auto px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto mt-6 p-4 bg-white shadow rounded">
+    <label data-translate="additionalNotesLabel" for="free-text-input" class="block text-sm font-medium text-gray-700 mb-1">Additional Notes:</label>
+    <textarea data-translate="additionalNotesPlaceholder" data-translate-attr="placeholder" id="free-text-input" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Enter any additional details..."></textarea>
+  </div>
+
+  <div class="container mx-auto mt-6 p-4 bg-gray-50 shadow rounded border border-gray-200">
+    <h2 data-translate="promptPreviewTitle" class="text-lg font-semibold text-gray-800 mb-2">Generated Prompt Preview:</h2>
+    <pre id="prompt-preview" class="whitespace-pre-wrap break-words bg-white p-3 rounded border border-gray-300 text-sm text-gray-700 min-h-[100px]"></pre>
+    <button data-translate="copyPromptButton" id="copy-prompt-button" class="mt-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      Copy Prompt
+    </button>
+  </div>
+
+  <div class="container mx-auto mt-6 p-4 bg-white shadow rounded">
+    <h2 data-translate="dataManagementTitle" class="text-lg font-semibold text-gray-800 mb-3">Data Management</h2>
+    <div class="flex space-x-4">
+      <button data-translate="exportButton" id="export-data-button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Export Data (JSON)
+      </button>
+      <label data-translate="importButton" for="import-data-input" class="cursor-pointer inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Import Data (JSON)
+        <input type="file" id="import-data-input" accept=".json" class="hidden">
+      </label>
+    </div>
+  </div>
+
+  <!-- Placeholder for AI Image Analysis Feature -->
+  <div class="container mx-auto mt-6 p-4 bg-gray-100 border-dashed border-2 border-gray-300 rounded">
+    <h2 class="text-lg font-semibold text-gray-500 mb-2">Future AI Image Analysis</h2>
+    <p class="text-sm text-gray-500">[This section will contain UI elements for AI-assisted image generation/analysis based on the generated prompt.]</p>
+  </div>
+
+  <!-- App content will go here -->
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html> 

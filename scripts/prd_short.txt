@@ -1,0 +1,89 @@
+# Core Features
+
+1. Prompt Generator & Preview
+- Generates human-readable composite sketch descriptions in real-time
+- Updates within 100ms of parameter adjustments
+- Includes clipboard copy functionality
+- Combines structured parameters with free-text input
+
+2. Parameter Sliders Display
+- Interactive sliders for visual parameters (e.g., Hair Length, Eye Color)
+- Real-time value display and adjustment
+- Predefined sets of standardized values ("shades")
+- Default parameters load on startup
+
+3. Dynamic Parameter Management
+- Add, edit, and remove custom parameters
+- Form-based parameter creation with validation
+- Customizable shade values for each parameter
+- Preservation of default parameters
+
+4. Data Import/Export
+- JSON-based save/load functionality
+- Standardized data structure for portability
+- Local file storage for security
+- Case information preservation
+
+5. Multilingual UI Support
+- Dynamic language switching
+- Translations via lang.json
+- English default with Spanish support
+- Graceful fallback handling
+
+6. Case Information Management
+- Title, case/journal number, and date tracking
+- Integration with generated prompts
+- Data persistence in exports
+
+# Technical Architecture
+
+System Components:
+1. Frontend Application
+- Vanilla JavaScript core
+- Tailwind CSS styling
+- Local state management
+- No backend dependencies
+
+2. Data Layer
+- JSON-based storage
+- Local file system integration
+- Structured parameter definitions
+- Case information schema
+
+3. Language System
+- Dynamic translation loading
+- Modular language files
+- Fallback handling
+
+4. Future AI Integration Points
+- Image analysis placeholder
+- Parameter mapping structure
+- Extensible data model
+
+Data Models:
+1. Case Information
+```json
+{
+  "title": "Burglar Suspect #1",
+  "caseNumber": "PD-2023-12345",
+  "date": "2023-10-27"
+}
+```
+
+2. Parameters
+```json
+[
+  {
+    "id": "hair-length",
+    "name": "Hair Length",
+    "shades": ["Very short", "Short", "Medium", "Long", "Very long"],
+    "value": "Short"
+  }
+]
+```
+
+Infrastructure Requirements:
+- Static hosting (Netlify/GitHub Pages)
+- Modern browser support
+- No server-side components
+- Local storage capabilities 

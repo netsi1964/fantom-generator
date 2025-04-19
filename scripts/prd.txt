@@ -1,0 +1,268 @@
+# Overview
+Fantom Generator is a web application designed for law enforcement to generate textual composite sketches (prompts) based on witness descriptions. It uses adjustable visual parameters and text input, with potential for AI assistance in future versions. The MVP focuses on robust prompt generation and data management via JSON.
+
+The application solves the challenge of standardizing and digitizing witness descriptions in law enforcement work. It's specifically designed for police investigators and witness handling teams who need to quickly and consistently capture physical descriptions. The value lies in its ability to create structured, reusable descriptions that can be easily shared and potentially used with future AI integration.
+
+# Core Features
+
+1. Prompt Generator & Preview
+- Generates human-readable composite sketch descriptions in real-time
+- Updates within 100ms of parameter adjustments
+- Includes clipboard copy functionality
+- Combines structured parameters with free-text input
+
+2. Parameter Sliders Display
+- Interactive sliders for visual parameters (e.g., Hair Length, Eye Color)
+- Real-time value display and adjustment
+- Predefined sets of standardized values ("shades")
+- Default parameters load on startup
+
+3. Dynamic Parameter Management
+- Add, edit, and remove custom parameters
+- Form-based parameter creation with validation
+- Customizable shade values for each parameter
+- Preservation of default parameters
+
+4. Data Import/Export
+- JSON-based save/load functionality
+- Standardized data structure for portability
+- Local file storage for security
+- Case information preservation
+
+5. Multilingual UI Support
+- Dynamic language switching
+- Translations via lang.json
+- English default with Spanish support
+- Graceful fallback handling
+
+6. Case Information Management
+- Title, case/journal number, and date tracking
+- Integration with generated prompts
+- Data persistence in exports
+
+# User Experience
+
+User Personas:
+1. Police Investigator
+- Primary user conducting witness interviews
+- Needs quick, efficient description capture
+- Values standardization and data portability
+
+2. Detective
+- Reviews and analyzes descriptions
+- Requires consistent format across cases
+- Focuses on detail accuracy
+
+3. Support Staff
+- Manages case documentation
+- Handles data organization and retrieval
+- Needs simple, intuitive interface
+
+Key User Flows:
+1. New Description Creation
+- Enter case information
+- Adjust parameter sliders
+- Add custom parameters if needed
+- Generate and copy prompt
+- Save description as JSON
+
+2. Description Review/Edit
+- Load existing JSON file
+- Review current parameters
+- Make necessary adjustments
+- Update and re-save
+
+3. Custom Parameter Creation
+- Access parameter management
+- Define new parameter name
+- Specify shade values
+- Integrate into description
+
+UI/UX Considerations:
+- Professional, neutral color palette
+- Clear visual hierarchy
+- Desktop/tablet-optimized design
+- Keyboard navigation support
+- Real-time feedback on actions
+- Minimal training requirements
+
+# Technical Architecture
+
+System Components:
+1. Frontend Application
+- Vanilla JavaScript core
+- Tailwind CSS styling
+- Local state management
+- No backend dependencies
+
+2. Data Layer
+- JSON-based storage
+- Local file system integration
+- Structured parameter definitions
+- Case information schema
+
+3. Language System
+- Dynamic translation loading
+- Modular language files
+- Fallback handling
+
+4. Future AI Integration Points
+- Image analysis placeholder
+- Parameter mapping structure
+- Extensible data model
+
+Data Models:
+1. Case Information
+```json
+{
+  "title": "Burglar Suspect #1",
+  "caseNumber": "PD-2023-12345",
+  "date": "2023-10-27"
+}
+```
+
+2. Parameters
+```json
+[
+  {
+    "id": "hair-length",
+    "name": "Hair Length",
+    "shades": ["Very short", "Short", "Medium", "Long", "Very long"],
+    "value": "Short"
+  }
+]
+```
+
+Infrastructure Requirements:
+- Static hosting (Netlify/GitHub Pages)
+- Modern browser support
+- No server-side components
+- Local storage capabilities
+
+# Development Roadmap
+
+Phase 1: MVP Foundation
+- Core UI layout and structure
+- Basic parameter system
+- Case information handling
+- Real-time prompt generation
+
+Phase 2: Enhanced Functionality
+- Custom parameter management
+- JSON import/export
+- Multilingual support
+- Basic validation
+
+Phase 3: User Testing & Polish
+- Internal testing
+- User acceptance testing
+- Documentation creation
+- Performance optimization
+
+Future Enhancements:
+- AI image analysis integration
+- Cloud-based storage
+- Template library
+- Advanced parameter types
+- User authentication
+
+# Logical Dependency Chain
+
+Foundation Layer:
+1. Core UI Framework
+2. Parameter Data Structure
+3. Case Information Management
+4. Basic Prompt Generation
+
+User Interface Layer:
+1. Parameter Sliders
+2. Custom Parameter Forms
+3. Language Switching
+4. Case Info Forms
+
+Data Management Layer:
+1. JSON Structure Definition
+2. Export Functionality
+3. Import Validation
+4. Local Storage Integration
+
+Feature Progression:
+1. Basic Description Creation
+2. Parameter Customization
+3. Data Portability
+4. Language Support
+5. AI Integration Preparation
+
+# Risks and Mitigations
+
+Technical Challenges:
+1. Parameter Definition Complexity
+- Provide clear examples
+- Implement robust defaults
+- Plan for template system
+
+2. UI Performance
+- Optimize DOM updates
+- Implement debouncing
+- Monitor parameter count
+
+3. Data Consistency
+- Structured validation
+- Clear naming conventions
+- Standardized formats
+
+MVP Scope Management:
+1. Feature Prioritization
+- Focus on core description functionality
+- Defer complex features
+- Maintain simplicity
+
+2. Technical Constraints
+- Static hosting limitations
+- Browser compatibility
+- Local storage restrictions
+
+Resource Optimization:
+1. Development Efficiency
+- Modular component design
+- Reusable code patterns
+- Clear documentation
+
+2. User Adoption
+- Intuitive interface
+- Minimal training needs
+- Quick value delivery
+
+# Appendix
+
+Default Parameters:
+1. Hair Length
+- Very Short, Short, Medium, Long, Very Long
+
+2. Hair Color
+- Black, Brown, Blonde, Red, Gray, White
+
+3. Eye Color
+- Blue, Green, Brown, Hazel, Gray, Black
+
+4. Skin Tone
+- Pale, Light, Medium, Olive, Dark, Very Dark
+
+5. Build
+- Thin, Medium, Muscular, Heavy, Obese
+
+6. Height
+- Short, Medium, Tall
+
+Success Metrics:
+- Agency adoption rate
+- Description consistency
+- Time savings vs. manual
+- User satisfaction
+- Bug occurrence rate
+
+Security Considerations:
+- Local-only data processing
+- No PII handling
+- User-managed file security
+- Static hosting security 
