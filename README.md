@@ -19,6 +19,12 @@ The Fantom Generator is designed to help police investigators and witness handli
 - **Multilingual UI**: Support for multiple languages
 - **Future AI Integration**: Placeholder for future AI image analysis capabilities
 
+## ✨ Live Demo
+
+You can try the live version of the Fantom Generator here:
+
+[**Live Demo**](https://netsi1964.github.io/fantom-generator/)
+
 ## 💻 Technology Stack
 
 - **Frontend**: Vanilla JavaScript
