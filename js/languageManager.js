@@ -15,7 +15,10 @@ let translations = {};
  */
 async function loadTranslations(lang) {
   try {
-    const response = await fetch(`lang/${lang}.json`);
+    // Use a path relative to the base URL of the current page
+    // This ensures it works both locally and when deployed to GitHub Pages
+    const baseUrl = new URL('./', window.location.href).href;
+    const response = await fetch(`${baseUrl}lang/${lang}.json`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
