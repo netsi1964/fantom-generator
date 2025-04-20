@@ -4,7 +4,7 @@ import { updateSliderLabels } from './ui/sliders.js';
 import { updateStyleSelectorUI } from './ui/styleSelector.js';
 
 const LANG_STORAGE_KEY = 'fantomLang';
-const SUPPORTED_LANGS = ['en', 'es', 'da'];
+const SUPPORTED_LANGS = ['en', 'es', 'da', 'zh', 'hi'];
 let currentLang = 'en';
 let translations = {};
 
