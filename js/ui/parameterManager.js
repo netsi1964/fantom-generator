@@ -1,7 +1,6 @@
 import { getParameters, saveParameters, resetParameters } from '../dataManager.js';
-import { initSliders } from './sliders.js';
 import { t } from '../languageManager.js';
-import { updatePreview } from '../promptGenerator.js';
+import { showConfirm } from './confirmModal.js';
 
 const modal = document.getElementById('parameter-management-modal');
 const modalTitle = document.getElementById('modal-title');
@@ -104,34 +103,28 @@ function handleSave() {
 
   saveParameters(parameters);
   closeModal();
-  initSliders(); // Refresh the sliders UI
-  document.dispatchEvent(new CustomEvent('parameterChange')); // Update prompt preview
 }
 
 function handleDelete() {
-  if (!currentEditingParamId || !confirm(t('deleteConfirm'))) { // Use t()
-    return;
-  }
+  if (!currentEditingParamId) return;
+  
+  showConfirm(t('deleteConfirm', {defaultValue: 'Are you sure you want to delete this parameter?'}), () => {
+    let parameters = getParameters();
+    parameters = parameters.filter(p => p.id !== currentEditingParamId);
 
-  let parameters = getParameters();
-  parameters = parameters.filter(p => p.id !== currentEditingParamId);
-
-  saveParameters(parameters);
-  closeModal();
-  initSliders(); // Refresh the sliders UI
-  document.dispatchEvent(new CustomEvent('parameterChange')); // Update prompt preview
+    saveParameters(parameters);
+    closeModal();
+  });
 }
 
 /**
  * Handles the click on the Reset Default Parameters button.
  */
 function handleResetDefaults() {
-    if (confirm(t('resetParamsConfirm'))) {
-        resetParameters(); // Call the reset function from dataManager
-        console.log('Parameters reset to defaults.');
-        initSliders(); // Refresh the sliders UI
-        updatePreview(); // Update the prompt preview
-    }
+  showConfirm(t('resetParamsConfirm', {defaultValue: 'Are you sure you want to reset all parameters to their defaults? This will remove any custom parameters.'}), () => {
+    resetParameters(); // Call the reset function from dataManager
+    console.log('Parameters reset to defaults.');
+  });
 }
 
 // Update UI Text Function (to be called on language change)

@@ -1,118 +1,94 @@
-import { getCaseInfo, saveCaseInfo, getParameters, saveParameters, getRenderStyle, saveRenderStyle } from './dataManager.js';
-import { initSliders } from './ui/sliders.js';
-import { updatePreview } from './promptGenerator.js'; // To update preview after import
-import { initCaseInfo } from './ui/caseInfo.js'; // To refresh case info form after import
-import { t } from './languageManager.js'; // Import t
+import { getAppState, getCaseInfo, saveAppState, getParameters, saveCaseInfo, getRenderStyle, getFreeText } from '../dataManager.js';
+import { generatePrompt } from '../promptGenerator.js';
+import { saveAs } from 'file-saver'; // Ensure file-saver is a dependency
+import { t } from '../languageManager.js';
+import { showToast } from '../ui/toast.js';
+import { showConfirm } from '../ui/confirmModal.js';
 
-const exportButton = document.getElementById('export-data-button');
-const importInput = document.getElementById('import-data-input');
+function exportToTxt() {
+  const promptText = generatePrompt();
+  const blob = new Blob([promptText], { type: 'text/plain;charset=utf-8' });
+  const caseInfo = getCaseInfo();
+  const filename = `fantom-sketch-${caseInfo.caseNumber || 'untitled'}-${new Date().toISOString().split('T')[0]}.txt`;
+  saveAs(blob, filename);
+}
 
-/**
- * Combines all relevant data into a single object for export.
- * @returns {object} The combined data object.
- */
-function prepareExportData() {
-  return {
-    caseInfo: getCaseInfo(),
-    parameters: getParameters(),
-    renderStyle: getRenderStyle(), // Include render style
-    exportFormatVersion: 1, // Versioning for future compatibility
-  };
+function exportToJson() {
+  try {
+    const state = getAppState();
+    const jsonString = JSON.stringify(state, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+    const caseInfo = state.caseInfo;
+    const filename = `fantom-sketch-data-${caseInfo.caseNumber || 'untitled'}-${new Date().toISOString().split('T')[0]}.json`;
+    saveAs(blob, filename);
+    showToast(t('exportSuccess', { defaultValue: 'Data exported successfully!' }), 'success');
+  } catch (error) {
+    console.error('Error exporting data to JSON:', error);
+    showToast(t('exportError', { defaultValue: 'Error exporting data.' }), 'error');
+  }
 }
 
 /**
- * Triggers a file download containing the exported data as JSON.
+ * Handles the logic for importing a JSON file.
+ * @param {Event} event The file input change event.
  */
-function handleExport() {
-  const exportData = prepareExportData();
-  const dataStr = JSON.stringify(exportData, null, 2); // Pretty print JSON
-  const blob = new Blob([dataStr], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement('a');
-  link.href = url;
-  // Create a filename based on case info or date
-  const filename = (exportData.caseInfo.caseNumber || exportData.caseInfo.title || 'fantom-export').replace(/\W+/g, '-') + '.json';
-  link.download = filename;
-
-  document.body.appendChild(link);
-  link.click();
-
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-
-  console.log('Data exported.');
-}
-
-/**
- * Handles file selection for import, reads the file, validates, and loads data.
- * @param {Event} event - The file input change event.
- */
-function handleImport(event) {
+function handleJsonImport(event) {
   const file = event.target.files[0];
   if (!file) {
+    // Reset input to allow re-selecting the same file if the dialog was cancelled
+    event.target.value = '';
     return;
   }
 
   const reader = new FileReader();
-
   reader.onload = (e) => {
-    try {
-      const importedData = JSON.parse(e.target.result);
+    showConfirm(
+      t('importConfirm', { defaultValue: 'Importing a new file will overwrite your current data. Are you sure you want to continue?' }),
+      () => {
+        try {
+          const importedState = JSON.parse(e.target.result);
 
-      // Basic validation - check for expected top-level keys + renderStyle
-      if (!importedData || typeof importedData !== 'object' || !importedData.caseInfo || !importedData.parameters || !importedData.renderStyle) {
-        throw new Error(t('importInvalidFormat'));
+          if (!importedState || typeof importedState !== 'object' ||
+              !importedState.caseInfo || typeof importedState.caseInfo !== 'object' ||
+              !importedState.parameters || !Array.isArray(importedState.parameters)) {
+            throw new Error(t('importInvalidFormat', { defaultValue: 'Invalid file format.' }));
+          }
+
+          saveParameters(importedState.parameters || []);
+          saveCaseInfo(importedState.caseInfo || {});
+          saveRenderStyle(importedState.renderStyle || 'Sketch');
+          saveFreeText(importedState.freeText || '');
+
+          showToast(t('importSuccess', { defaultValue: 'Data imported successfully!' }), 'success');
+
+        } catch (error) {
+          console.error('Error importing data:', error);
+          showToast(`${t('importError', { defaultValue: 'Import failed:' })} ${error.message}`, 'error');
+        } finally {
+          event.target.value = '';
+        }
       }
-      // TODO: Add more robust validation (schema check?)
-
-      // Load the data
-      saveCaseInfo(importedData.caseInfo);
-      saveParameters(importedData.parameters);
-      saveRenderStyle(importedData.renderStyle);
-
-      console.log('Data imported successfully.');
-
-      // Refresh UI elements
-      initCaseInfo(); // Reloads form fields
-      initSliders(); // Reloads sliders
-      updatePreview(); // Updates the prompt preview
-
-      alert(t('importSuccess')); // Use t()
-
-    } catch (error) {
-      console.error('Error importing data:', error);
-      alert(`${t('importError')}${error.message || t('importInvalidJSON')}`); // Use t()
-    } finally {
-      // Reset the file input to allow importing the same file again if needed
-      importInput.value = '';
-    }
+    );
   };
-
-  reader.onerror = (error) => {
-    console.error('Error reading file:', error);
-    alert(t('importFileReadError')); // Use t()
-    importInput.value = '';
+  reader.onerror = () => {
+    showToast(t('importFileReadError', { defaultValue: 'Failed to read file.' }), 'error');
+    event.target.value = '';
   };
-
   reader.readAsText(file);
 }
 
-/**
- * Initializes import/export functionality.
- */
 export function initImportExport() {
-  if (!exportButton || !importInput) {
-    console.error('Import/Export elements not found!');
-    return;
+  const exportTxtButton = document.getElementById('export-txt-button');
+  const exportJsonButton = document.getElementById('export-data-button');
+  const importJsonInput = document.getElementById('import-data-input');
+
+  if (exportTxtButton) {
+    exportTxtButton.addEventListener('click', exportToTxt);
   }
-
-  exportButton.addEventListener('click', handleExport);
-  importInput.addEventListener('change', handleImport);
+  if (exportJsonButton) {
+    exportJsonButton.addEventListener('click', exportToJson);
+  }
+  if (importJsonInput) {
+    importJsonInput.addEventListener('change', handleJsonImport);
+  }
 }
-
-// Function to update static text on buttons/labels if needed (though data-translate handles most)
-export function updateImportExportText() {
-  if (exportButton) exportButton.textContent = t('exportButton');
-  // The import button is a label, its text is handled by data-translate
-} 

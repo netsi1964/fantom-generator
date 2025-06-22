@@ -42,6 +42,9 @@
   "resetParamsConfirm": "Er du sikker på, at du vil nulstille alle parametre til deres standardværdier? Dette kan ikke fortrydes.",
   "Face Shape": "Ansigtform",
   "aiSectionTitle": "AI-billedgenerering",
-  "aiHelpText": "Indtast din GenAI-nøgle og generer et billede ud fra prompten.",
-  "generateImageButton": "Generer Billede"
+  "aiHelpText": "Indtast din GenAI API-nøgle og generer et billede fra prompten.",
+  "generateImageButton": "Generer Billede",
+  "cannotDeleteDefault": "Standardparametre kan ikke slettes.",
+  "exportError": "Fejl ved eksport af data.",
+  "parameterNameExists": "En parameter med navnet '{name}' findes allerede."
 }

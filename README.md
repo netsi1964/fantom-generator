@@ -25,6 +25,37 @@ You can try the live version of the Fantom Generator here:
 
 [**Live Demo**](https://netsi1964.github.io/fantom-generator/)
 
+## 🚀 How to Use
+
+### Local Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/fantom-generator.git
+    cd fantom-generator
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Open `index.html` in your browser:**
+    You can simply open the `index.html` file directly in a web browser, or use a live server extension in your code editor for a better development experience.
+
+### Key Features
+
+-   **Language Selection**: Use the dropdown at the top right to change the user interface language.
+-   **Render Style**: Select a render style (e.g., Sketch, Realistic) to guide the AI image generation.
+-   **Case Information**: Fill in the case title, number, and date. This information is saved with your data and included in exports.
+-   **Parameter Sliders**: Adjust the sliders to define the physical characteristics. The prompt preview will update in real-time.
+-   **Custom Parameters**:
+    -   **Add**: Click "Add Custom Parameter" to open a modal where you can define a new parameter and its shades (comma-separated).
+    -   **Edit**: Click on any parameter's card (but not on the slider itself) to open the modal and edit its name or shades.
+    -   **Delete**: When editing a custom parameter, a "Delete" button will appear. Default parameters cannot be deleted.
+-   **Data Management**:
+    -   **Export**: Click "Export Data (JSON)" to save your entire setup (case info, parameters, etc.) to a JSON file.
+    -   **Import**: Click "Import Data (JSON)" and select a previously saved file to load a configuration.
+-   **Prompt Generation**: The "Generated Prompt Preview" box shows the final prompt. Use the "Copy Prompt" button to copy it to your clipboard.
+
 ## 💻 Technology Stack
 
 - **Frontend**: Vanilla JavaScript

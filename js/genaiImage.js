@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, Modality } from "@google/generative-ai";
 import { generatePrompt } from "./promptGenerator.js";
 
 export function initGenAI() {
@@ -24,7 +24,11 @@ export function initGenAI() {
 
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-preview-image-generation",
+          generationConfig: {
+              responseModalities: [Modality.IMAGE],
+          }
+      });
       const prompt = generatePrompt();
       const result = await model.generateContent(prompt);
       const response = await result.response;

@@ -1,102 +1,96 @@
 import { getParameters, saveParameters } from '../dataManager.js';
 import { t } from '../languageManager.js';
+import { openModalForEdit } from './parameterModal.js';
+import { debounce } from '../utils.js';
 
 const slidersContainer = document.getElementById('parameter-sliders-container');
 
-// --- Debounce Utility ---
-let debounceTimer;
-function debounce(func, delay) {
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(func, delay);
-}
-
 /**
- * Creates a single parameter slider element.
- * @param {object} parameter - The parameter object (id, name, shades, value).
- * @returns {HTMLElement} - The created slider container element.
+ * Renderer en enkelt, fuldt funktionel slider-komponent.
+ * @param {object} parameter - Parameterobjektet fra dataManager.
  */
-function createSliderElement(parameter) {
-  const container = document.createElement('div');
-  container.className = 'p-3 border rounded shadow-sm bg-gray-50 flex flex-col';
+function renderSlider(parameter) {
+  const sliderWrapper = document.createElement('div');
+  sliderWrapper.className = 'slider-wrapper p-3 border rounded shadow-sm bg-gray-50 hover:shadow-md transition-shadow duration-200 cursor-pointer';
+  sliderWrapper.setAttribute('data-parameter-id', parameter.id);
 
   const label = document.createElement('label');
-  label.textContent = t(parameter.name, { defaultValue: parameter.name });
   label.htmlFor = `slider-${parameter.id}`;
-  label.className = 'block text-xs font-medium text-gray-700 mb-1 truncate';
+  label.className = 'slider-label block text-sm font-medium text-gray-700 mb-1';
+  label.textContent = t(parameter.name, { defaultValue: parameter.name });
 
-  const slider = document.createElement('input');
-  slider.type = 'range';
-  slider.id = `slider-${parameter.id}`;
-  slider.name = parameter.id;
-  slider.min = 0;
-  slider.max = parameter.shades.length - 1;
-  slider.value = parameter.shades.indexOf(parameter.value);
-  slider.className = 'w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 mt-1 mb-1';
+  const valueOutput = document.createElement('span');
+  valueOutput.className = 'slider-value float-right text-gray-600';
+  valueOutput.textContent = t(parameter.value, { defaultValue: parameter.value });
 
-  const valueDisplay = document.createElement('span');
-  valueDisplay.textContent = parameter.value;
-  valueDisplay.className = 'block text-xs text-gray-600 text-center font-semibold';
+  const sliderInput = document.createElement('input');
+  sliderInput.type = 'range';
+  sliderInput.id = `slider-${parameter.id}`;
+  sliderInput.name = parameter.id;
+  sliderInput.min = 0;
+  sliderInput.max = parameter.shades.length - 1;
+  sliderInput.step = 1;
+  sliderInput.className = 'w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 mt-2';
+  const currentIndex = parameter.shades.indexOf(parameter.value);
+  sliderInput.value = currentIndex !== -1 ? currentIndex : 0;
 
-  // Event listener for slider changes
-  slider.addEventListener('input', (event) => {
-    const shadeIndex = parseInt(event.target.value, 10);
-    const newValue = parameter.shades[shadeIndex];
-    valueDisplay.textContent = newValue;
+  // Add click listener to the wrapper to open the edit modal
+  sliderWrapper.addEventListener('click', (event) => {
+    // Only open modal if the click is not on the slider input itself
+    if (event.target.type !== 'range') {
+      openModalForEdit(parameter.id);
+    }
+  });
 
-    // Update the parameter value in the main data store using debounce
+  // Event listener til at håndtere slider-ændringer
+  sliderInput.addEventListener('input', () => {
+    const selectedShade = parameter.shades[sliderInput.value];
+    valueOutput.textContent = t(selectedShade) || selectedShade; // Translate if possible
+  });
+
+  sliderInput.addEventListener('change', () => {
     debounce(() => {
       const currentParams = getParameters();
       const paramToUpdate = currentParams.find(p => p.id === parameter.id);
       if (paramToUpdate) {
-        paramToUpdate.value = newValue;
-        saveParameters(currentParams);
-        console.log(`Parameter ${parameter.id} saved as ${newValue}`);
-        // Dispatch custom event after saving
-        document.dispatchEvent(new CustomEvent('parameterChange'));
+        paramToUpdate.value = parameter.shades[sliderInput.value];
+        saveParameters(currentParams); // This now dispatches 'stateChange'
       }
-    }, 300); // 300ms delay
+    }, 300);
   });
 
-  container.appendChild(label);
-  container.appendChild(slider);
-  container.appendChild(valueDisplay);
-
-  return container;
+  // Sammensæt elementerne
+  label.appendChild(valueOutput);
+  sliderWrapper.appendChild(label);
+  sliderWrapper.appendChild(sliderInput);
+  slidersContainer.appendChild(sliderWrapper);
 }
 
 /**
- * Updates the text labels of existing sliders based on the current language.
+ * Rydder og gen-renderer alle sliders. Bruges ved initialisering og sprogskift.
  */
-export function updateSliderLabels() {
-  if (!slidersContainer) return;
-  const labels = slidersContainer.querySelectorAll('label');
-  labels.forEach(label => {
-    const sliderId = label.htmlFor;
-    const paramId = sliderId.replace('slider-', '');
-    // Find the parameter name from the data to use as a key
-    // This assumes parameter names are consistent and used as keys
-    const parameters = getParameters();
-    const param = parameters.find(p => p.id === paramId);
-    if (param) {
-      label.textContent = t(param.name, { defaultValue: param.name });
-    }
-  });
-}
-
-/**
- * Initializes and displays all parameter sliders.
- */
-export function initSliders() {
+export function renderAllSliders() {
   if (!slidersContainer) {
     console.error('Slider container not found!');
     return;
   }
+  // Find the buttons that are inside the container
+  const buttons = slidersContainer.querySelectorAll('div.col-span-full');
 
-  slidersContainer.innerHTML = ''; // Clear existing sliders
+  slidersContainer.innerHTML = ''; // Ryd eksisterende indhold
   const parameters = getParameters();
+  parameters.forEach(renderSlider);
 
-  parameters.forEach(parameter => {
-    const sliderElement = createSliderElement(parameter);
-    slidersContainer.appendChild(sliderElement);
+  // Re-append the buttons after clearing
+  buttons.forEach(buttonDiv => {
+    slidersContainer.appendChild(buttonDiv);
   });
-} 
+}
+
+// Listen for state changes to re-render the sliders if parameters change
+document.addEventListener('stateChange', (e) => {
+  if (e.detail && (e.detail.changedKey === 'parameters' || e.detail.changedKey === 'fullReset')) {
+    console.log('Detected state change for parameters, re-rendering sliders.');
+    renderAllSliders();
+  }
+});

@@ -1,56 +1,50 @@
 import { getCaseInfo, saveCaseInfo } from '../dataManager.js';
+import { t } from '../languageManager.js';
 
-const titleInput = document.getElementById('case-title');
-const numberInput = document.getElementById('case-number');
-const dateInput = document.getElementById('case-date');
-
+// Debounce-funktion for at undgå at overbelaste systemet med hyppige opdateringer.
 let debounceTimer;
 function debounce(func, delay) {
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(func, delay);
 }
 
-/**
- * Loads case info data into the form fields.
- */
-function loadCaseInfoToForm() {
-  const caseInfo = getCaseInfo();
-  titleInput.value = caseInfo.title || '';
-  numberInput.value = caseInfo.caseNumber || '';
-  dateInput.value = caseInfo.date || '';
-}
+function initCaseInfo() {
+  const caseTitleInput = document.getElementById('case-title');
+  const caseNumberInput = document.getElementById('case-number');
+  const caseDateInput = document.getElementById('case-date');
 
-/**
- * Handles input changes, saves data (debounced), and triggers preview update.
- */
-function handleInputChange() {
-  debounce(() => {
-    const currentCaseInfo = {
-      title: titleInput.value,
-      caseNumber: numberInput.value,
-      date: dateInput.value,
-    };
-    saveCaseInfo(currentCaseInfo);
-    console.log('Case Info saved:', currentCaseInfo);
-    // Dispatch event to update prompt preview
-    document.dispatchEvent(new CustomEvent('caseInfoChange'));
-  }, 500); // 500ms delay for text inputs
-}
+  // Load initial data and populate the form
+  const currentCaseInfo = getCaseInfo();
+  caseTitleInput.value = currentCaseInfo.title || '';
+  caseNumberInput.value = currentCaseInfo.caseNumber || '';
+  caseDateInput.value = currentCaseInfo.date || '';
 
-/**
- * Initializes the case information form functionality.
- */
-export function initCaseInfo() {
-  if (!titleInput || !numberInput || !dateInput) {
-    console.error('Case info input elements not found!');
-    return;
+  // Function to handle saving the form data
+  function handleInput() {
+    debounce(() => {
+      const updatedCaseInfo = {
+        title: caseTitleInput.value,
+        caseNumber: caseNumberInput.value,
+        date: caseDateInput.value,
+      };
+      saveCaseInfo(updatedCaseInfo); // This now dispatches 'stateChange'
+    }, 300); // 300ms debounce delay
   }
 
-  // Load initial data
-  loadCaseInfoToForm();
+  // Add event listeners
+  caseTitleInput.addEventListener('input', handleInput);
+  caseNumberInput.addEventListener('input', handleInput);
+  caseDateInput.addEventListener('input', handleInput);
 
-  // Add event listeners for input changes
-  titleInput.addEventListener('input', handleInputChange);
-  numberInput.addEventListener('input', handleInputChange);
-  dateInput.addEventListener('change', handleInputChange); // Use 'change' for date input
-} 
+  // Set placeholders based on current language
+  function updatePlaceholders() {
+    caseTitleInput.placeholder = t('case_title_placeholder');
+    caseNumberInput.placeholder = t('case_number_placeholder');
+  }
+
+  // Initial placeholder setup and update on language change
+  updatePlaceholders();
+  document.addEventListener('languageChange', updatePlaceholders);
+}
+
+export { initCaseInfo }; 

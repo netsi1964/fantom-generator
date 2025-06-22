@@ -21,105 +21,161 @@
     </select>
   </div>
 
-  <!-- Render Style Selector -->
   <div class="container mx-auto mt-4">
-    <label data-translate="renderStyleLabel" for="render-style-select" class="block text-sm font-medium text-gray-700">Render Style:</label>
-    <select id="render-style-select" name="render-style" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border">
-      <option value="Sketch">Sketch</option>
-      <option value="Realistic">Realistic</option>
-      <option value="Cartoon">Cartoon</option>
-      <option value="3D Model">3D Model</option>
-      <option value="Painting">Painting</option>
-    </select>
-  </div>
-
-  <h1 data-translate="appTitle" class="text-3xl font-bold underline text-center mt-4">
-    Fantom Generator
-  </h1>
-
-  <div id="case-info-container" class="container mx-auto mt-4 p-4 bg-white shadow rounded">
-    <h2 data-translate="caseInfoTitle" class="text-lg font-semibold text-gray-800 mb-3">Case Information</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div>
-        <label data-translate="caseTitleLabel" for="case-title" class="block text-sm font-medium text-gray-700">Title:</label>
-        <input type="text" id="case-title" name="case-title" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-      </div>
-      <div>
-        <label data-translate="caseNumberLabel" for="case-number" class="block text-sm font-medium text-gray-700">Case/Journal #:</label>
-        <input type="text" id="case-number" name="case-number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-      </div>
-      <div>
-        <label data-translate="caseDateLabel" for="case-date" class="block text-sm font-medium text-gray-700">Date:</label>
-        <input type="date" id="case-date" name="case-date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-      </div>
+    <div class="border-b border-gray-200">
+        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <button id="parameters-tab" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600" data-translate="parametersTab">
+                Parameters
+            </button>
+            <button id="upload-ai-tab" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-translate="uploadAiTab">
+                Upload & AI
+            </button>
+        </nav>
     </div>
   </div>
 
-  <div id="parameter-sliders-container" class="container mx-auto mt-8 p-4 bg-white shadow rounded grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <!-- Sliders will be dynamically added here as grid items -->
-    <div class="mt-6 pt-4 border-t border-gray-200 col-span-full flex space-x-4">
-      <button data-translate="addCustomParamButton" id="add-parameter-button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-        Add Custom Parameter
+  <div id="parameters-tab-content">
+    <!-- Render Style Selector -->
+    <div class="container mx-auto mt-4">
+      <label data-translate="renderStyleLabel" for="render-style-select" class="block text-sm font-medium text-gray-700">Render Style:</label>
+      <select id="render-style-select" name="render-style" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border">
+        <option value="Sketch">Sketch</option>
+        <option value="Realistic">Realistic</option>
+        <option value="Cartoon">Cartoon</option>
+        <option value="3D Model">3D Model</option>
+        <option value="Painting">Painting</option>
+      </select>
+    </div>
+
+    <h1 data-translate="appTitle" class="text-3xl font-bold underline text-center mt-4">
+      Fantom Generator
+    </h1>
+
+    <div id="case-info-container" class="container mx-auto mt-4 p-4 bg-white shadow rounded">
+      <h2 data-translate="caseInfoTitle" class="text-lg font-semibold text-gray-800 mb-3">Case Information</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label data-translate="caseTitleLabel" for="case-title" class="block text-sm font-medium text-gray-700">Title:</label>
+          <input type="text" id="case-title" name="case-title" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div>
+          <label data-translate="caseNumberLabel" for="case-number" class="block text-sm font-medium text-gray-700">Case/Journal #:</label>
+          <input type="text" id="case-number" name="case-number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div>
+          <label data-translate="caseDateLabel" for="case-date" class="block text-sm font-medium text-gray-700">Date:</label>
+          <input type="date" id="case-date" name="case-date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+      </div>
+    </div>
+
+    <div id="parameter-sliders-container" class="container mx-auto mt-8 p-4 bg-white shadow rounded grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <!-- Sliders will be dynamically added here as grid items -->
+      <div class="mt-6 pt-4 border-t border-gray-200 col-span-full flex space-x-4">
+        <button data-translate="addCustomParamButton" id="add-parameter-button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+          Add Custom Parameter
+        </button>
+        <button data-translate="resetParamsButton" id="reset-parameters-button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Reset Default Parameters
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal or container for parameter management form -->
+    <div id="parameter-management-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-96 shadow-lg rounded-md bg-white">
+        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Parameter Management</h3>
+        <!-- Form content will go here -->
+        <div id="parameter-form-container">
+          <form id="parameter-form">
+              <input type="hidden" id="parameter-id" value="">
+              <div>
+                  <label for="parameter-name" class="block text-sm font-medium text-gray-700" data-translate="parameterNameLabel">Parameter Name</label>
+                  <input type="text" id="parameter-name" name="parameter-name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+              </div>
+              <div class="mt-4">
+                  <label for="parameter-shades" class="block text-sm font-medium text-gray-700" data-translate="shadesLabel">Shades (comma-separated)</label>
+                  <input type="text" id="parameter-shades" name="parameter-shades" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+              </div>
+          </form>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row-reverse sm:px-6">
+            <button data-translate="saveButton" id="save-parameter-button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Save</button>
+            <button data-translate="cancelButton" id="cancel-parameter-button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">Cancel</button>
+            <button data-translate="deleteButton" id="delete-parameter-button" class="hidden mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmation-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-96 shadow-lg rounded-md bg-white">
+        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="confirmation-modal-title">Confirmation</h3>
+        <p id="confirmation-modal-message" class="text-sm text-gray-600 mb-4">Are you sure?</p>
+        <div class="mt-4 flex flex-row-reverse px-4 py-3">
+            <button id="confirm-ok-button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">Confirm</button>
+            <button id="confirm-cancel-button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto mt-6 p-4 bg-white shadow rounded">
+      <label data-translate="additionalNotesLabel" for="free-text-input" class="block text-sm font-medium text-gray-700 mb-1">Additional Notes:</label>
+      <textarea data-translate="additionalNotesPlaceholder" data-translate-attr="placeholder" id="free-text-input" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Enter any additional details..."></textarea>
+    </div>
+
+    <div class="container mx-auto mt-6 p-4 bg-gray-50 shadow rounded border border-gray-200">
+      <h2 data-translate="promptPreviewTitle" class="text-lg font-semibold text-gray-800 mb-2">Generated Prompt Preview:</h2>
+      <pre id="prompt-preview" class="whitespace-pre-wrap break-words bg-white p-3 rounded border border-gray-300 text-sm text-gray-700 min-h-[100px]"></pre>
+      <button data-translate="copyPromptButton" id="copy-prompt-button" class="mt-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Copy Prompt
       </button>
-      <button data-translate="resetParamsButton" id="reset-parameters-button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        Reset Default Parameters
-      </button>
     </div>
-  </div>
 
-  <!-- Modal or container for parameter management form -->
-  <div id="parameter-management-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-      <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Parameter Management</h3>
-      <!-- Form content will go here -->
-      <div id="parameter-form-container">
-        <!-- Form fields for name, shades -->
-      </div>
-      <div class="items-center px-4 py-3">
-          <button data-translate="saveButton" id="save-parameter-button" class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">Save</button>
-          <button data-translate="cancelButton" id="cancel-parameter-button" class="ml-2 px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300">Cancel</button>
-          <button data-translate="deleteButton" id="delete-parameter-button" class="hidden ml-auto px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300">Delete</button>
+    <div class="container mx-auto mt-6 p-4 bg-white shadow rounded">
+      <h2 data-translate="dataManagementTitle" class="text-lg font-semibold text-gray-800 mb-3">Data Management</h2>
+      <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
+        <button data-translate="exportButton" id="export-data-button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Export Data (JSON)
+        </button>
+        <label data-translate="importButton" for="import-data-input" class="cursor-pointer inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Import Data (JSON)
+          <input type="file" id="import-data-input" accept=".json" class="hidden">
+        </label>
       </div>
     </div>
   </div>
 
-  <div class="container mx-auto mt-6 p-4 bg-white shadow rounded">
-    <label data-translate="additionalNotesLabel" for="free-text-input" class="block text-sm font-medium text-gray-700 mb-1">Additional Notes:</label>
-    <textarea data-translate="additionalNotesPlaceholder" data-translate-attr="placeholder" id="free-text-input" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Enter any additional details..."></textarea>
-  </div>
+  <div id="upload-ai-tab-content" class="hidden">
+    <div class="container mx-auto mt-6 p-4 bg-white shadow rounded">
+        <h2 data-translate="uploadImageTitle" class="text-lg font-semibold text-gray-800 mb-3">Upload Image for Analysis</h2>
+        <div class="flex items-center justify-center w-full">
+            <label for="image-upload-input" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/></svg>
+                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold" data-translate="clickToUpload">Click to upload</span> or drag and drop</p>
+                    <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                </div>
+                <input id="image-upload-input" type="file" class="hidden" />
+            </label>
+        </div> 
+        <div class="mt-4">
+            <img id="image-preview" src="#" alt="Image Preview" class="hidden max-w-full h-auto mx-auto rounded-lg shadow-md"/>
+        </div>
+        <button id="analyze-image-button" class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-translate="analyzeButton">Analyze</button>
+    </div>
 
-  <div class="container mx-auto mt-6 p-4 bg-gray-50 shadow rounded border border-gray-200">
-    <h2 data-translate="promptPreviewTitle" class="text-lg font-semibold text-gray-800 mb-2">Generated Prompt Preview:</h2>
-    <pre id="prompt-preview" class="whitespace-pre-wrap break-words bg-white p-3 rounded border border-gray-300 text-sm text-gray-700 min-h-[100px]"></pre>
-    <button data-translate="copyPromptButton" id="copy-prompt-button" class="mt-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-      Copy Prompt
-    </button>
-  </div>
-
-  <div class="container mx-auto mt-6 p-4 bg-white shadow rounded">
-    <h2 data-translate="dataManagementTitle" class="text-lg font-semibold text-gray-800 mb-3">Data Management</h2>
-    <div class="flex space-x-4">
-      <button data-translate="exportButton" id="export-data-button" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        Export Data (JSON)
-      </button>
-      <label data-translate="importButton" for="import-data-input" class="cursor-pointer inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        Import Data (JSON)
-        <input type="file" id="import-data-input" accept=".json" class="hidden">
-      </label>
+    <!-- GenAI Image Generation Feature -->
+    <div id="ai-image-container" class="container mx-auto mt-6 p-4 bg-gray-100 border-dashed border-2 border-gray-300 rounded">
+        <h2 data-translate="aiSectionTitle" class="text-lg font-semibold text-gray-500 mb-2">AI Image Generation</h2>
+        <p data-translate="aiHelpText" class="text-sm text-gray-500 mb-4">Enter your GenAI API key and generate an image from the prompt.</p>
+        <input id="genai-key-input" type="password" class="mb-2 p-2 border rounded w-full" placeholder="GenAI API Key">
+        <button data-translate="generateImageButton" id="generate-image-button" class="mb-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Generate Image</button>
+        <div id="image-result" class="mt-4"></div>
     </div>
   </div>
 
-  <!-- GenAI Image Generation Feature -->
-  <div id="ai-image-container" class="container mx-auto mt-6 p-4 bg-gray-100 border-dashed border-2 border-gray-300 rounded">
-    <h2 data-translate="aiSectionTitle" class="text-lg font-semibold text-gray-500 mb-2">AI Image Generation</h2>
-    <p data-translate="aiHelpText" class="text-sm text-gray-500 mb-4">Enter your GenAI API key and generate an image from the prompt.</p>
-    <input id="genai-key-input" type="password" class="mb-2 p-2 border rounded w-full" placeholder="GenAI API Key">
-    <button data-translate="generateImageButton" id="generate-image-button" class="mb-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Generate Image</button>
-    <div id="image-result" class="mt-4"></div>
-  </div>
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
 
-  <!-- App content will go here -->
-
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/main.js" defer></script>
 </body>
 </html> 

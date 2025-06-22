@@ -1,6 +1,6 @@
 import { updateParameterManagerText } from './ui/parameterManager.js';
 import { updateImportExportText } from './importExport.js';
-import { updateSliderLabels } from './ui/sliders.js';
+import { renderAllSliders } from './ui/sliders.js';
 import { updateStyleSelectorUI } from './ui/styleSelector.js';
 
 const LANG_STORAGE_KEY = 'fantomLang';
@@ -67,7 +67,7 @@ export async function setLanguage(lang) {
   // Call specific update functions for modules with dynamic text
   updateParameterManagerText();
   updateImportExportText();
-  updateSliderLabels();
+  renderAllSliders(); // Re-render sliders for language update
   updateStyleSelectorUI();
 
   console.log(`Language set to ${lang}`);
@@ -83,11 +83,27 @@ function updateUITranslations() {
     const attribute = element.getAttribute('data-translate-attr') || 'textContent'; // Default to textContent
 
     if (key) {
-      element[attribute] = t(key);
+      const translated = t(key);
+      if (element[attribute] !== translated) {
+        element[attribute] = translated;
+      }
     }
   });
   // Note: Dynamically created elements (like sliders, modal content)
   // will need to be updated when they are created/shown or language changes.
+}
+
+/**
+ * Initializes the language switcher dropdown.
+ */
+export function initLanguageSwitcher() {
+  const langSelector = document.getElementById('language-select');
+  if (langSelector) {
+    langSelector.value = getCurrentLanguage();
+    langSelector.addEventListener('change', (event) => {
+      setLanguage(event.target.value);
+    });
+  }
 }
 
 /**

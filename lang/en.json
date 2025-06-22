@@ -43,5 +43,8 @@
   "Face Shape": "Face Shape",
   "aiSectionTitle": "AI Image Generation",
   "aiHelpText": "Enter your GenAI API key and generate an image from the prompt.",
-  "generateImageButton": "Generate Image"
+  "generateImageButton": "Generate Image",
+  "cannotDeleteDefault": "Default parameters cannot be deleted.",
+  "exportError": "Error exporting data.",
+  "parameterNameExists": "A parameter with the name '{name}' already exists."
 }

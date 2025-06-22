@@ -1,198 +1,213 @@
 /**
- * Manages application data, including case information, parameters,
+ * Manages the application's central state, including case information, parameters,
  * and interaction with localStorage.
  */
 
-const CASE_INFO_KEY = 'fantomCaseInfo';
-const PARAMETERS_KEY = 'fantomParameters';
-const RENDER_STYLE_KEY = 'fantomRenderStyle'; // Key for render style
+// --- Constants for localStorage keys ---
+const APP_STATE_KEY = 'fantomAppState';
 
-// --- Default Data ---
+// --- Central Application State ---
+let appState = {};
 
-const defaultCaseInfo = {
-  title: '',
-  caseNumber: '',
-  date: '',
+// --- Default Data Structures ---
+
+export const defaultState = {
+  caseInfo: {
+    title: '',
+    caseNumber: '',
+    date: '',
+  },
+  parameters: [
+    {
+      id: 'hair-length',
+      name: 'Hair Length',
+      shades: ['Very short', 'Short', 'Medium', 'Long', 'Very long'],
+      value: 'Medium',
+    },
+    {
+      id: 'hair-color',
+      name: 'Hair Color',
+      shades: ['Black', 'Brown', 'Blonde', 'Red', 'Gray', 'White'],
+      value: 'Brown',
+    },
+    {
+      id: 'eye-color',
+      name: 'Eye Color',
+      shades: ['Blue', 'Green', 'Brown', 'Hazel', 'Gray', 'Black'],
+      value: 'Brown',
+    },
+    {
+      id: 'skin-tone',
+      name: 'Skin Tone',
+      shades: ['Pale', 'Light', 'Medium', 'Olive', 'Dark', 'Very Dark'],
+      value: 'Medium',
+    },
+    {
+      id: 'sex',
+      name: 'Sex',
+      shades: ['Male', 'Female', 'Other/Unspecified'],
+      value: 'Male',
+    },
+    {
+      id: 'age',
+      name: 'Age',
+      shades: ['Child', 'Teenager', 'Young Adult', 'Middle-aged', 'Senior'],
+      value: 'Young Adult',
+    },
+    {
+      id: 'build',
+      name: 'Build',
+      shades: ['Slim', 'Medium', 'Heavy', 'Muscular'],
+      value: 'Medium',
+    },
+    {
+      id: 'facial-hair',
+      name: 'Facial Hair',
+      shades: ['None', 'Moustache', 'Goatee', 'Short Beard', 'Full Beard'],
+      value: 'None',
+    },
+    {
+      id: 'face-shape',
+      name: 'Face Shape',
+      shades: ['Oval', 'Round', 'Square', 'Heart', 'Long'],
+      value: 'Oval',
+    },
+  ],
+  renderStyle: 'Sketch',
+  freeText: '',
 };
 
-const defaultParameters = [
-  {
-    id: 'hair-length',
-    name: 'Hair Length',
-    shades: ['Very short', 'Short', 'Medium', 'Long', 'Very long'],
-    value: 'Medium', // Default value often center
-    // Future AI mapping hint: aiConcept: 'hair_length_category'
-  },
-  {
-    id: 'hair-color',
-    name: 'Hair Color',
-    shades: ['Black', 'Brown', 'Blonde', 'Red', 'Gray', 'White'],
-    value: 'Brown',
-  },
-  {
-    id: 'eye-color',
-    name: 'Eye Color',
-    shades: ['Blue', 'Green', 'Brown', 'Hazel', 'Gray', 'Black'],
-    value: 'Brown',
-  },
-  {
-    id: 'skin-tone',
-    name: 'Skin Tone',
-    shades: ['Pale', 'Light', 'Medium', 'Olive', 'Dark', 'Very Dark'],
-    value: 'Medium',
-    // Future AI mapping hint: aiConcept: 'skin_tone_scale'
-  },
-  {
-    id: 'sex',
-    name: 'Sex',
-    shades: ['Male', 'Female', 'Other/Unspecified'],
-    value: 'Male',
-  },
-  {
-    id: 'age',
-    name: 'Age',
-    // Using descriptive ranges instead of a numeric slider for simplicity
-    shades: ['Child', 'Teenager', 'Young Adult', 'Middle-aged', 'Senior'],
-    value: 'Young Adult',
-  },
-  {
-    id: 'build',
-    name: 'Build',
-    shades: ['Slim', 'Medium', 'Heavy', 'Muscular'],
-    value: 'Medium',
-  },
-  {
-    id: 'facial-hair',
-    name: 'Facial Hair',
-    shades: ['None', 'Moustache', 'Goatee', 'Short Beard', 'Full Beard'],
-    value: 'None',
-  },
-  {
-    id: 'face-shape',
-    name: 'Face Shape',
-    shades: ['Oval', 'Round', 'Square', 'Heart', 'Long'],
-    value: 'Oval',
-  },
-  // New parameters can be added here or dynamically via parameter manager.
-  // The structure is designed to be extensible for future parameter types
-  // (e.g., color pickers, boolean flags) by potentially adding a 'type' field.
-];
+/**
+ * Checks if a parameter is part of the default set.
+ * @param {string} parameterId - The ID of the parameter to check.
+ * @returns {boolean} - True if the parameter is a default parameter.
+ */
+export function isDefaultParameter(parameterId) {
+  return defaultState.parameters.some(p => p.id === parameterId);
+}
 
-const defaultRenderStyle = 'Sketch'; // Default rendering style
-
-// --- Utility Functions ---
+// --- Core State Management ---
 
 /**
- * Loads data from localStorage.
- * @param {string} key The localStorage key.
- * @param {any} defaultValue The default value if key not found or error occurs.
- * @returns {any} The loaded data or the default value.
+ * Initializes the application state by loading from localStorage or using defaults.
  */
-function loadFromStorage(key, defaultValue) {
-  try {
-    const storedValue = localStorage.getItem(key);
-    if (storedValue === null) {
-      return defaultValue;
-    }
-    // Check if it's the render style key and looks like a plain string
-    // or if it's just not JSON-like
-    if ((key === RENDER_STYLE_KEY || (!storedValue.startsWith('{') && !storedValue.startsWith('['))) && storedValue !== 'null') {
-        return storedValue; // Return plain string value
-    }
-    // Otherwise, parse as JSON
-    return JSON.parse(storedValue);
-  } catch (error) {
-    console.error(`Error loading ${key} from localStorage:`, error);
-    return defaultValue;
-  }
+export function initializeAppState() {
+  const loadedState = JSON.parse(localStorage.getItem(APP_STATE_KEY)) || {};
+  
+  // Deep merge for robust state initialization
+  appState = {
+    ...defaultState,
+    ...loadedState,
+    caseInfo: { ...defaultState.caseInfo, ...loadedState.caseInfo },
+    parameters: loadedState.parameters && Array.isArray(loadedState.parameters) ? loadedState.parameters : [...defaultState.parameters],
+  };
+  console.log('Initialized App State:', appState);
 }
 
 /**
- * Saves data to localStorage.
- * @param {string} key The localStorage key.
- * @param {any} value The value to save.
+ * Saves the entire application state to localStorage and notifies the UI.
+ * @param {string} changeType - A key describing what part of the state changed.
  */
-function saveToStorage(key, value) {
-  try {
-    // Store non-JSON strings directly for render style
-    const valueToStore = (typeof value === 'string' && (key === RENDER_STYLE_KEY)) ? value : JSON.stringify(value);
-    localStorage.setItem(key, valueToStore);
-  } catch (error) {
-    console.error(`Error saving ${key} to localStorage:`, error);
-  }
+function saveAndNotify(changeType) {
+  localStorage.setItem(APP_STATE_KEY, JSON.stringify(appState));
+  document.dispatchEvent(new CustomEvent('stateChange', { 
+    detail: { newState: appState, changedKey: changeType } 
+  }));
 }
 
-// --- Public API ---
+// --- Public API for State Interaction ---
 
 /**
- * Gets the current case information, loading from storage or using defaults.
+ * Gets the entire current application state.
+ * @returns {object} The application state object.
+ */
+export function getAppState() {
+    return appState;
+}
+
+/**
+ * Gets the current case information from the central state.
  * @returns {object} The case information object.
  */
 export function getCaseInfo() {
-  return loadFromStorage(CASE_INFO_KEY, { ...defaultCaseInfo });
+  return appState.caseInfo || { ...defaultState.caseInfo };
 }
 
 /**
- * Saves the provided case information to storage.
+ * Gets the current free text from the central state.
+ * @returns {string} The free text string.
+ */
+export function getFreeText() {
+  return appState.freeText || defaultState.freeText;
+}
+
+/**
+ * Updates the case information in the state and saves.
  * @param {object} caseInfo The case information object to save.
  */
 export function saveCaseInfo(caseInfo) {
-  // Basic validation could be added here
-  saveToStorage(CASE_INFO_KEY, caseInfo);
+  appState.caseInfo = caseInfo;
+  saveAndNotify('caseInfo');
 }
 
 /**
- * Gets the current parameters, loading from storage or using defaults.
+ * Gets the current parameters from the central state.
  * @returns {Array<object>} An array of parameter objects.
  */
 export function getParameters() {
-  // Deep copy default parameters to avoid mutation issues
-  const defaultCopy = defaultParameters.map(p => ({ ...p }));
-  return loadFromStorage(PARAMETERS_KEY, defaultCopy);
+  return appState.parameters || [...defaultState.parameters];
 }
 
 /**
- * Saves the provided parameters array to storage.
+ * Updates the parameters array in the state and saves.
  * @param {Array<object>} parameters An array of parameter objects to save.
  */
 export function saveParameters(parameters) {
-  // Basic validation could be added here
-  // Ensure parameters array structure is valid
-  // TODO: Implement validation based on expected parameter structure
-  // This structure can be extended to include AI-specific fields if needed.
-  saveToStorage(PARAMETERS_KEY, parameters);
+  appState.parameters = parameters;
+  saveAndNotify('parameters');
 }
 
 /**
- * Resets parameters to their default values and saves.
- */
-export function resetParameters() {
-  const defaultCopy = defaultParameters.map(p => ({ ...p }));
-  saveParameters(defaultCopy);
-}
-
-/**
- * Resets case information to its default values and saves.
- */
-export function resetCaseInfo() {
-  saveCaseInfo({ ...defaultCaseInfo });
-}
-
-// --- Render Style Functions ---
-
-/**
- * Gets the current render style, loading from storage or using default.
+ * Gets the current render style from the central state.
  * @returns {string} The render style string.
  */
 export function getRenderStyle() {
-  return loadFromStorage(RENDER_STYLE_KEY, defaultRenderStyle);
+  return appState.renderStyle;
 }
 
 /**
- * Saves the provided render style to storage.
+ * Updates the render style in the state and saves.
  * @param {string} style The render style string to save.
  */
 export function saveRenderStyle(style) {
-  // Basic validation could be added here
-  saveToStorage(RENDER_STYLE_KEY, style);
-} 
+  appState.renderStyle = style;
+  saveAndNotify('renderStyle');
+}
+
+/**
+ * Updates the free text in the state and saves.
+ * @param {string} text The free text to save.
+ */
+export function saveFreeText(text) {
+  appState.freeText = text;
+  saveAndNotify('freeText');
+}
+
+/**
+ * Resets the entire application state to defaults.
+ */
+export function resetAppState() {
+  appState = JSON.parse(JSON.stringify(defaultState)); // Deep copy
+  saveAndNotify('fullReset');
+}
+
+/**
+ * Resets only the parameters to their default state.
+ */
+export function resetParameters() {
+  appState.parameters = JSON.parse(JSON.stringify(defaultState.parameters)); // Deep copy
+  saveAndNotify('parameters');
+}
+
+// Initialize on load. This ensures the state is ready when other modules import from here.
+initializeAppState();

@@ -42,6 +42,9 @@
   "resetParamsConfirm": "¿Está seguro de que desea restablecer todos los parámetros a sus valores predeterminados? Esto no se puede deshacer.",
   "Face Shape": "Forma de la Cara",
   "aiSectionTitle": "Generación de Imagen AI",
-  "aiHelpText": "Ingrese su clave GenAI y genere una imagen a partir del mensaje.",
-  "generateImageButton": "Generar Imagen"
+  "aiHelpText": "Ingresa tu clave de API de GenAI y genera una imagen a partir del prompt.",
+  "generateImageButton": "Generar Imagen",
+  "cannotDeleteDefault": "Los parámetros por defecto no se pueden eliminar.",
+  "exportError": "Error al exportar los datos.",
+  "parameterNameExists": "Ya existe un parámetro con el nombre '{name}'."
 }
