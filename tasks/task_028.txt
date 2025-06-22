@@ -1,6 +1,6 @@
 # Task ID: 28
 # Title: Implement Confirmation Dialogs for Destructive Actions
-# Status: pending
+# Status: done
 # Dependencies: 7, 8
 # Priority: low
 # Description: Add confirmation dialogs for actions that could result in data loss.

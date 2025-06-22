@@ -1,6 +1,6 @@
 # Task ID: 24
 # Title: Implement Basic Keyboard Navigation
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: low
 # Description: Add basic keyboard navigation for accessibility.

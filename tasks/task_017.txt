@@ -1,6 +1,6 @@
 # Task ID: 17
 # Title: Implement Render Style Selector Functionality
-# Status: pending
+# Status: done
 # Dependencies: 2, 15
 # Priority: medium
 # Description: Connect the render style selector to the application state and prompt generation.

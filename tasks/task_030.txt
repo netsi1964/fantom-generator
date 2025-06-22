@@ -1,6 +1,6 @@
 # Task ID: 30
 # Title: Prepare for Deployment
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: low
 # Description: Prepare the application for deployment to a static hosting platform.

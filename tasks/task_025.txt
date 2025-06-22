@@ -1,6 +1,6 @@
 # Task ID: 25
 # Title: Create User Documentation
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: low
 # Description: Create basic user documentation for the application.

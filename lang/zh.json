@@ -47,4 +47,9 @@
   "cannotDeleteDefault": "默认参数不能删除。",
   "exportError": "导出数据时出错。",
   "parameterNameExists": "名为'{name}'的参数已存在。"
+  ,"parametersTab": "参数"
+  ,"uploadAiTab": "上传与AI"
+  ,"uploadImageTitle": "上传图像以供分析"
+  ,"clickToUpload": "点击上传"
+  ,"analyzeButton": "分析"
 }

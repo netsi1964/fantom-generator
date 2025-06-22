@@ -1,6 +1,6 @@
 # Task ID: 3
 # Title: Implement Copy Prompt Functionality
-# Status: pending
+# Status: done
 # Dependencies: 2
 # Priority: medium
 # Description: Add functionality to the 'Copy Prompt' button to copy the generated prompt to the clipboard.

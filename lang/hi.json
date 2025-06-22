@@ -47,4 +47,9 @@
   "cannotDeleteDefault": "डिफ़ॉल्ट पैरामीटर हटाए नहीं जा सकते।",
   "exportError": "डेटा निर्यात करते समय त्रुटि।",
   "parameterNameExists": "नाम '{name}' वाला पैरामीटर पहले से मौजूद है।"
+  ,"parametersTab": "पैरामीटर"
+  ,"uploadAiTab": "अपलोड और एआई"
+  ,"uploadImageTitle": "विश्लेषण हेतु छवि अपलोड करें"
+  ,"clickToUpload": "अपलोड के लिए क्लिक करें"
+  ,"analyzeButton": "विश्लेषण करें"
 }

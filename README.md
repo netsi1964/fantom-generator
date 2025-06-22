@@ -38,7 +38,11 @@ You can try the live version of the Fantom Generator here:
     ```bash
     npm install
     ```
-3.  **Open `index.html` in your browser:**
+3.  **Run the test suite (optional):**
+    ```bash
+    npm test
+    ```
+4.  **Open `index.html` in your browser:**
     You can simply open the `index.html` file directly in a web browser, or use a live server extension in your code editor for a better development experience.
 
 ### Key Features
