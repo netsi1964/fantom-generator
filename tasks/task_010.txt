@@ -1,0 +1,11 @@
+# Task ID: 10
+# Title: Implement JSON Import Functionality
+# Status: done
+# Dependencies: 9
+# Priority: high
+# Description: Allow users to import a previously saved JSON file to restore the application state.
+# Details:
+Implement the change handler for the 'Import Data (JSON)' file input. When a file is selected, read its contents, parse it as JSON, and validate its structure. If valid, update the application state with the imported data, including case information, free text, and parameters. Update the UI to reflect the imported state.
+
+# Test Strategy:
+Test importing various JSON files, including valid ones created by the export function and invalid ones, to ensure proper handling and error messages.

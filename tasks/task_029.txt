@@ -1,0 +1,11 @@
+# Task ID: 29
+# Title: Create Automated Tests
+# Status: pending
+# Dependencies: 2, 9, 10, 15
+# Priority: low
+# Description: Create automated tests for core functionality.
+# Details:
+Create automated tests for core functionality like prompt generation, JSON import/export, and state management. This ensures that future changes don't break existing functionality.
+
+# Test Strategy:
+Run the automated tests to ensure they correctly identify issues with the core functionality.

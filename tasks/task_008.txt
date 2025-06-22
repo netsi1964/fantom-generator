@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Implement Reset Default Parameters Functionality
+# Status: pending
+# Dependencies: 4, 5, 6, 7
+# Priority: low
+# Description: Add functionality to reset to default parameters.
+# Details:
+Implement the click handler for the 'Reset Default Parameters' button. When clicked, it should remove all custom parameters and reset the default parameters to their initial state. Show a confirmation dialog before resetting to prevent accidental data loss.
+
+# Test Strategy:
+Test resetting parameters after adding and modifying custom parameters to ensure the application returns to its initial state.

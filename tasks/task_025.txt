@@ -1,0 +1,11 @@
+# Task ID: 25
+# Title: Create User Documentation
+# Status: pending
+# Dependencies: None
+# Priority: low
+# Description: Create basic user documentation for the application.
+# Details:
+Create basic user documentation explaining how to use the application, including adding and editing parameters, saving and loading JSON, and using the prompt generation feature. This can be a simple README.md file or a more comprehensive user guide.
+
+# Test Strategy:
+Have someone unfamiliar with the application review the documentation and attempt to use the application based on it to ensure it is clear and comprehensive.

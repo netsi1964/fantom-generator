@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: Implement Add Custom Parameter Functionality
+# Status: pending
+# Dependencies: 1, 4
+# Priority: high
+# Description: Create the form and logic to allow users to add custom parameters.
+# Details:
+Implement the functionality for the 'Add Custom Parameter' button. When clicked, it should display the parameter management modal with empty fields for parameter name and shades (comma-separated). Validate that both fields are not empty before saving. On save, create a new parameter object, add it to the application state, and render a new slider for it.
+
+# Test Strategy:
+Test adding custom parameters with various names and shade lists to ensure they are correctly added to the UI and included in the prompt generation.

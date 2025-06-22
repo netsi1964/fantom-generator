@@ -1,0 +1,11 @@
+# Task ID: 26
+# Title: Implement Visual Feedback for User Actions
+# Status: pending
+# Dependencies: 3, 9, 10
+# Priority: low
+# Description: Add visual feedback for user actions like saving, loading, and copying.
+# Details:
+Implement visual feedback (e.g., toast notifications, button state changes) for user actions like copying the prompt, saving and loading JSON, and adding or editing parameters. This improves the user experience by providing clear confirmation of actions.
+
+# Test Strategy:
+Test various user actions to ensure appropriate visual feedback is provided.

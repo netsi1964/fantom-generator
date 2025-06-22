@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: Implement Delete Parameter Functionality
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Allow users to delete custom parameters.
+# Details:
+Add a delete button to the parameter management modal that appears when editing an existing parameter (not when adding a new one). When clicked, remove the parameter from the application state and update the UI. Ensure default parameters cannot be deleted.
+
+# Test Strategy:
+Test deleting custom parameters to ensure they are removed from the UI and prompt generation. Verify that default parameters cannot be deleted.

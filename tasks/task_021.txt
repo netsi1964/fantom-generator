@@ -1,0 +1,11 @@
+# Task ID: 21
+# Title: Implement Parameter Validation
+# Status: pending
+# Dependencies: 5, 6
+# Priority: medium
+# Description: Add validation for parameter names and shade lists.
+# Details:
+Implement validation for parameter names and shade lists when adding or editing parameters. Ensure parameter names are unique and not empty, and that shade lists contain at least one value. Display appropriate error messages to the user.
+
+# Test Strategy:
+Test adding and editing parameters with various invalid inputs to ensure appropriate error messages are displayed and invalid inputs are not accepted.

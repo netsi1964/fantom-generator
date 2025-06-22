@@ -21,7 +21,7 @@ node_modules/
 # OS specific
 .DS_Store
 # Task files
-tasks.json
-tasks/
+# tasks.json
+# tasks/
 # Cursor MCP config - potentially contains secrets
 .cursor/mcp.json 

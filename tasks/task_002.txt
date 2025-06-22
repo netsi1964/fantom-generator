@@ -1,0 +1,51 @@
+# Task ID: 2
+# Title: Implement Dynamic Prompt Generation
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Create a function that generates a human-readable prompt based on all active parameters and free text input.
+# Details:
+Develop a function that takes the current state of all parameters (including their selected shade values) and the free text input, then generates a human-readable prompt. The prompt should incorporate all active parameters in the order they appear in the UI, and include the free text input. The function should update the prompt preview area within 100ms of any parameter change.
+
+# Test Strategy:
+Test with various combinations of parameters and free text to ensure the prompt is generated correctly and updates in real-time.
+
+# Subtasks:
+## 1. Create Parameter State Collection Function [done]
+### Dependencies: None
+### Description: Implement a function that collects and formats all active parameters and their selected shade values from the UI state
+### Details:
+Create a function `collectActiveParameters()` that:
+1. Accesses the current UI state to identify which parameters are active
+2. For each active parameter, retrieve its name and currently selected shade value
+3. Format each parameter as a string (e.g., 'Vibrant Red', 'Subtle Blue')
+4. Return an ordered array of formatted parameter strings based on their UI position
+5. Implement efficient state access to ensure sub-100ms performance
+6. Add unit tests that verify correct parameter collection with various combinations of active/inactive parameters and different shade selections
+
+## 2. Implement Prompt String Assembly [done]
+### Dependencies: 2.1
+### Description: Create a function that combines the active parameters with free text input to generate the complete prompt string
+### Details:
+Implement a function `assemblePrompt(parameterStrings, freeText)` that:
+1. Takes the array of formatted parameter strings from subtask 1 and the free text input
+2. Combines parameters with appropriate separators (commas, spaces, etc.)
+3. Appends the free text input to the parameters
+4. Handles edge cases such as empty parameters list or empty free text
+5. Returns the complete, human-readable prompt string
+6. Test with various combinations of parameters and free text to ensure correct formatting
+7. Benchmark to ensure the function completes within the 50ms timeframe (allowing 50ms for the UI update)
+
+## 3. Connect Prompt Generation to UI Updates [done]
+### Dependencies: 2.1, 2.2
+### Description: Integrate the prompt generation with the UI state and implement real-time updates to the prompt preview area
+### Details:
+Implement the integration logic that:
+1. Sets up event listeners or state observers for parameter changes and free text input
+2. On any change, calls the functions from subtasks 1 and 2 to generate the updated prompt
+3. Updates the prompt preview area in the UI with the new prompt text
+4. Implements debouncing if necessary to handle rapid successive changes
+5. Ensures the entire update process completes within 100ms of any parameter change
+6. Add performance monitoring to verify the timing requirements are met
+7. Test the integration with various user interaction patterns (single parameter change, multiple rapid changes, text input changes)
+

@@ -1,0 +1,11 @@
+# Task ID: 28
+# Title: Implement Confirmation Dialogs for Destructive Actions
+# Status: pending
+# Dependencies: 7, 8
+# Priority: low
+# Description: Add confirmation dialogs for actions that could result in data loss.
+# Details:
+Implement confirmation dialogs for destructive actions like deleting parameters, resetting to default parameters, or loading a JSON file that would replace the current state. This prevents accidental data loss.
+
+# Test Strategy:
+Test various destructive actions to ensure confirmation dialogs are displayed and that canceling prevents the action.

@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Implement Copy Prompt Functionality
+# Status: pending
+# Dependencies: 2
+# Priority: medium
+# Description: Add functionality to the 'Copy Prompt' button to copy the generated prompt to the clipboard.
+# Details:
+Implement the click handler for the 'Copy Prompt' button that copies the current content of the prompt preview to the user's clipboard. Use the Clipboard API (navigator.clipboard.writeText) with appropriate fallbacks for older browsers.
+
+# Test Strategy:
+Test the copy functionality across different browsers to ensure it works consistently.

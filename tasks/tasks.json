@@ -1,0 +1,537 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Implement Parameter Slider Component",
+        "description": "Create a reusable slider component that displays parameter name and allows selection from predefined shade values.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "details": "Develop a JavaScript component that renders a slider for each parameter. The slider should display the parameter name, show the current selected shade value, and allow users to select from the predefined list of shades. The component should update the application state when the user changes the slider value and trigger the prompt generation function.",
+        "testStrategy": "Test with various parameter configurations to ensure the slider correctly displays all shade values and updates the application state when changed.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Basic Slider Component Structure",
+            "description": "Implement the core slider component with parameter name display and basic slider functionality",
+            "dependencies": [],
+            "details": "1. Create a new JavaScript file for the ParameterSlider component\n2. Define the component structure with props for parameter name, current value, min/max values, and available shade values\n3. Implement the basic HTML/CSS structure with a label for the parameter name and a slider input element\n4. Style the component with appropriate spacing, fonts, and colors\n5. Add basic event listeners for slider interaction\n6. Test the component renders correctly with different parameter names and values\n7. Ensure the slider visually updates when dragged",
+            "status": "done",
+            "parentTaskId": 1
+          },
+          {
+            "id": 2,
+            "title": "Implement Shade Value Selection and Display",
+            "description": "Enhance the slider to display and select from predefined shade values instead of numeric values",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Modify the slider component to accept an array of predefined shade values\n2. Update the slider to map its position to the corresponding shade value index\n3. Add a display element showing the currently selected shade value text\n4. Implement logic to snap the slider to discrete positions corresponding to shade values\n5. Add visual indicators or tick marks for each available shade value\n6. Update the component styling to clearly show the selected value\n7. Test that moving the slider correctly updates the displayed shade value\n8. Verify the slider properly snaps to the correct positions",
+            "status": "done",
+            "parentTaskId": 1
+          },
+          {
+            "id": 3,
+            "title": "Connect Slider to Application State and Prompt Generation",
+            "description": "Integrate the slider component with the application state management and prompt generation function",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "1. Implement an onChange callback function in the slider component\n2. Update the component to call this callback with the new shade value when changed\n3. In the parent component, connect the slider to the application state management system\n4. Implement state update logic when slider values change\n5. Add debouncing to prevent excessive updates during slider dragging\n6. Connect the state changes to trigger the prompt generation function\n7. Test that changing the slider properly updates the application state\n8. Verify that slider changes correctly trigger prompt regeneration\n9. Implement error handling for cases where prompt generation fails",
+            "status": "done",
+            "parentTaskId": 1
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement Dynamic Prompt Generation",
+        "description": "Create a function that generates a human-readable prompt based on all active parameters and free text input.",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "details": "Develop a function that takes the current state of all parameters (including their selected shade values) and the free text input, then generates a human-readable prompt. The prompt should incorporate all active parameters in the order they appear in the UI, and include the free text input. The function should update the prompt preview area within 100ms of any parameter change.",
+        "testStrategy": "Test with various combinations of parameters and free text to ensure the prompt is generated correctly and updates in real-time.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Parameter State Collection Function",
+            "description": "Implement a function that collects and formats all active parameters and their selected shade values from the UI state",
+            "dependencies": [],
+            "details": "Create a function `collectActiveParameters()` that:\n1. Accesses the current UI state to identify which parameters are active\n2. For each active parameter, retrieve its name and currently selected shade value\n3. Format each parameter as a string (e.g., 'Vibrant Red', 'Subtle Blue')\n4. Return an ordered array of formatted parameter strings based on their UI position\n5. Implement efficient state access to ensure sub-100ms performance\n6. Add unit tests that verify correct parameter collection with various combinations of active/inactive parameters and different shade selections",
+            "status": "done",
+            "parentTaskId": 2
+          },
+          {
+            "id": 2,
+            "title": "Implement Prompt String Assembly",
+            "description": "Create a function that combines the active parameters with free text input to generate the complete prompt string",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement a function `assemblePrompt(parameterStrings, freeText)` that:\n1. Takes the array of formatted parameter strings from subtask 1 and the free text input\n2. Combines parameters with appropriate separators (commas, spaces, etc.)\n3. Appends the free text input to the parameters\n4. Handles edge cases such as empty parameters list or empty free text\n5. Returns the complete, human-readable prompt string\n6. Test with various combinations of parameters and free text to ensure correct formatting\n7. Benchmark to ensure the function completes within the 50ms timeframe (allowing 50ms for the UI update)",
+            "status": "done",
+            "parentTaskId": 2
+          },
+          {
+            "id": 3,
+            "title": "Connect Prompt Generation to UI Updates",
+            "description": "Integrate the prompt generation with the UI state and implement real-time updates to the prompt preview area",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Implement the integration logic that:\n1. Sets up event listeners or state observers for parameter changes and free text input\n2. On any change, calls the functions from subtasks 1 and 2 to generate the updated prompt\n3. Updates the prompt preview area in the UI with the new prompt text\n4. Implements debouncing if necessary to handle rapid successive changes\n5. Ensures the entire update process completes within 100ms of any parameter change\n6. Add performance monitoring to verify the timing requirements are met\n7. Test the integration with various user interaction patterns (single parameter change, multiple rapid changes, text input changes)",
+            "status": "done",
+            "parentTaskId": 2
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Implement Copy Prompt Functionality",
+        "description": "Add functionality to the 'Copy Prompt' button to copy the generated prompt to the clipboard.",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "medium",
+        "details": "Implement the click handler for the 'Copy Prompt' button that copies the current content of the prompt preview to the user's clipboard. Use the Clipboard API (navigator.clipboard.writeText) with appropriate fallbacks for older browsers.",
+        "testStrategy": "Test the copy functionality across different browsers to ensure it works consistently."
+      },
+      {
+        "id": 4,
+        "title": "Implement Default Parameters Loading",
+        "description": "Load the default set of parameters on application startup.",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "details": "Create a module that defines the default parameters as specified in PRD-SEC-013 (Hair Length, Hair Color, Eye Color, Skin Tone, Build, Height). Each parameter should have its predefined list of shades. On application startup, load these default parameters and render them as sliders in the parameters container.",
+        "testStrategy": "Verify that all default parameters load correctly on application startup with their predefined shade values."
+      },
+      {
+        "id": 5,
+        "title": "Implement Add Custom Parameter Functionality",
+        "description": "Create the form and logic to allow users to add custom parameters.",
+        "status": "done",
+        "dependencies": [
+          1,
+          4
+        ],
+        "priority": "high",
+        "details": "Implement the functionality for the 'Add Custom Parameter' button. When clicked, it should display the parameter management modal with empty fields for parameter name and shades (comma-separated). Validate that both fields are not empty before saving. On save, create a new parameter object, add it to the application state, and render a new slider for it.",
+        "testStrategy": "Test adding custom parameters with various names and shade lists to ensure they are correctly added to the UI and included in the prompt generation.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Parameter Management Modal Component",
+            "description": "Develop a reusable modal component for adding custom parameters with input fields for parameter name and shades.",
+            "dependencies": [],
+            "details": "Create a new React component called 'ParameterModal' with: 1) A form containing input fields for parameter name and shades (with placeholder text indicating comma-separated format), 2) Validation logic to ensure both fields are not empty, 3) Save and Cancel buttons, 4) Proper styling consistent with the application design. The modal should be hidden by default and include proper accessibility attributes.",
+            "status": "done",
+            "testStrategy": "Test that the modal renders correctly, validation works as expected, and that the form can be submitted when valid inputs are provided."
+          },
+          {
+            "id": 2,
+            "title": "Implement Add Custom Parameter Button and Modal Toggle",
+            "description": "Create the 'Add Custom Parameter' button and connect it to the parameter modal component.",
+            "dependencies": [],
+            "details": "Add an 'Add Custom Parameter' button to the appropriate location in the UI. When clicked, it should display the parameter management modal created in the previous subtask. Implement the state management to control the visibility of the modal. Ensure the modal can be closed via the Cancel button or by clicking outside the modal area.",
+            "status": "done",
+            "testStrategy": "Test that clicking the button opens the modal and that the modal can be closed through various methods (Cancel button, clicking outside, pressing Escape key)."
+          },
+          {
+            "id": 3,
+            "title": "Implement Parameter Creation and State Management",
+            "description": "Add functionality to save new parameters to the application state and render corresponding sliders.",
+            "dependencies": [],
+            "details": "When the Save button in the modal is clicked and validation passes: 1) Create a new parameter object with the provided name and parse the comma-separated shades into an array, 2) Add this new parameter to the application state (likely using Redux or Context API), 3) Close the modal and reset its form fields, 4) Ensure a new slider is rendered for the newly created parameter. Include error handling for invalid inputs and provide user feedback on successful creation.",
+            "status": "done",
+            "testStrategy": "Test the full flow from opening the modal, entering valid data, saving, and verifying that a new parameter appears in the UI with the correct slider. Also test error cases with invalid inputs."
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Implement Edit Parameter Functionality",
+        "description": "Allow users to edit existing parameters by clicking on them.",
+        "status": "done",
+        "dependencies": [
+          5
+        ],
+        "priority": "medium",
+        "details": "Add click handlers to parameter sliders that open the parameter management modal pre-populated with the parameter's current details. Allow users to edit the parameter name and shades list. On save, update the parameter in the application state and refresh the UI to reflect the changes.",
+        "testStrategy": "Test editing various parameters to ensure changes are correctly saved and reflected in the UI and prompt generation."
+      },
+      {
+        "id": 7,
+        "title": "Implement Delete Parameter Functionality",
+        "description": "Allow users to delete custom parameters.",
+        "status": "done",
+        "dependencies": [
+          5
+        ],
+        "priority": "medium",
+        "details": "Add a delete button to the parameter management modal that appears when editing an existing parameter (not when adding a new one). When clicked, remove the parameter from the application state and update the UI. Ensure default parameters cannot be deleted.",
+        "testStrategy": "Test deleting custom parameters to ensure they are removed from the UI and prompt generation. Verify that default parameters cannot be deleted."
+      },
+      {
+        "id": 8,
+        "title": "Implement Reset Default Parameters Functionality",
+        "description": "Add functionality to reset to default parameters.",
+        "status": "done",
+        "dependencies": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "priority": "low",
+        "details": "Implement the click handler for the 'Reset Default Parameters' button. When clicked, it should remove all custom parameters and reset the default parameters to their initial state. Show a confirmation dialog before resetting to prevent accidental data loss.",
+        "testStrategy": "Test resetting parameters after adding and modifying custom parameters to ensure the application returns to its initial state."
+      },
+      {
+        "id": 9,
+        "title": "Implement JSON Export Functionality",
+        "description": "Allow users to export the current application state as a JSON file.",
+        "status": "done",
+        "dependencies": [
+          4
+        ],
+        "priority": "high",
+        "details": "Implement the click handler for the 'Export Data (JSON)' button. When clicked, it should create a JSON object containing the case information, free text, and all parameters (including custom ones). Generate a file named 'fantom-sketch-[case-number]-[date].json' and trigger a download. The JSON structure should follow the format specified in PRD-SEC-006.",
+        "testStrategy": "Test exporting with various combinations of parameters, case info, and free text to ensure the JSON file contains all data and follows the correct structure."
+      },
+      {
+        "id": 10,
+        "title": "Implement JSON Import Functionality",
+        "description": "Allow users to import a previously saved JSON file to restore the application state.",
+        "status": "done",
+        "dependencies": [
+          9
+        ],
+        "priority": "high",
+        "details": "Implement the change handler for the 'Import Data (JSON)' file input. When a file is selected, read its contents, parse it as JSON, and validate its structure. If valid, update the application state with the imported data, including case information, free text, and parameters. Update the UI to reflect the imported state.",
+        "testStrategy": "Test importing various JSON files, including valid ones created by the export function and invalid ones, to ensure proper handling and error messages."
+      },
+      {
+        "id": 11,
+        "title": "Implement Multilingual UI Support",
+        "description": "Add support for multiple languages in the UI based on the lang.json file.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "details": "Create a module that loads language data from a lang.json file (following the structure in PRD-SEC-015). Implement a function that updates all UI elements with data-translate attributes based on the selected language. Connect this to the language selector dropdown. Default to English if a translation is missing.",
+        "testStrategy": "Test switching between languages to ensure all UI elements update correctly. Test with missing translations to ensure fallback to English works."
+      },
+      {
+        "id": 12,
+        "title": "Create Upload & AI Tab",
+        "description": "Create a placeholder for the Upload & AI feature as specified in PRD-FEAT-006.",
+        "status": "done",
+        "dependencies": [
+          1,
+          2,
+          4
+        ],
+        "priority": "low",
+        "details": "Implement a tab navigation system to switch between the 'Parameters' view and the 'Upload & AI' view. In the 'Upload & AI' tab, create an interface with an image upload area and an 'Analyze' button. Implement a mock AI function that returns a predefined set of parameter values when the 'Analyze' button is clicked. Connect this to the parameter sliders to update them with the mock values.",
+        "testStrategy": "Test uploading various image formats and clicking the 'Analyze' button to ensure the mock AI function runs and updates the parameter sliders correctly."
+      },
+      {
+        "id": 13,
+        "title": "Implement Case Information Form Functionality",
+        "description": "Connect the case information form fields to the application state.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "details": "Add event listeners to the case information form fields (Title, Case/Journal Number, Date) to update the application state when they change. Ensure these values are included in the JSON export and prompt generation.",
+        "testStrategy": "Test entering various values in the case information fields and verify they are correctly included in the prompt and JSON export.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create state management for case information fields",
+            "description": "Define state variables and update functions for case information fields in the application state",
+            "dependencies": [],
+            "details": "1. Identify the application state management approach (e.g., React Context, Redux, or simple state)\n2. Add new state variables for case information fields: title, caseNumber, and date\n3. Create appropriate setter functions or actions to update these state values\n4. Ensure the state has appropriate default values\n5. Update the state interface/type definitions if using TypeScript\n6. Test the state management by manually triggering state updates and verifying the state changes correctly",
+            "status": "done",
+            "parentTaskId": 13
+          },
+          {
+            "id": 2,
+            "title": "Connect form fields to state with event listeners",
+            "description": "Add event handlers to form fields to update application state when values change",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Locate the case information form component in the codebase\n2. Add onChange/onInput event listeners to each form field (Title, Case/Journal Number, Date)\n3. Connect these event listeners to the state update functions created in subtask 1\n4. Ensure proper value binding so form fields reflect current state values\n5. Add appropriate validation if needed (e.g., date format validation)\n6. Test the form by entering values and verifying the application state updates correctly\n7. Verify that changes persist when navigating between different parts of the application",
+            "status": "done",
+            "parentTaskId": 13
+          },
+          {
+            "id": 3,
+            "title": "Include case information in JSON export and prompt generation",
+            "description": "Update export and prompt generation functionality to include case information fields",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "1. Locate the JSON export functionality in the codebase\n2. Modify the export function to include the case information fields (title, caseNumber, date) in the exported JSON structure\n3. Find the prompt generation functionality\n4. Update the prompt template to include the case information fields where appropriate\n5. Test the JSON export by filling the form and verifying the exported JSON contains the case information\n6. Test the prompt generation by verifying case information appears correctly in the generated prompt\n7. Ensure backward compatibility with existing data that might not have these fields",
+            "status": "done",
+            "parentTaskId": 13
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Implement Free Text Input Functionality",
+        "description": "Connect the free text input to the application state and prompt generation.",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "high",
+        "details": "Add an event listener to the free text input to update the application state when it changes. Ensure the free text is included in the prompt generation and JSON export.",
+        "testStrategy": "Test entering various text in the free text input and verify it is correctly included in the prompt and JSON export."
+      },
+      {
+        "id": 15,
+        "title": "Implement Application State Management",
+        "description": "Create a central state management system for the application.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "details": "Develop a module that manages the application state, including case information, free text, parameters, and selected language. Implement functions to get and update the state, with appropriate event dispatching to notify components of state changes. This will serve as the central source of truth for the application.",
+        "testStrategy": "Test various state updates to ensure they are correctly reflected in the UI and that components are notified of changes.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create State Store Structure and Basic Getters",
+            "description": "Define the core state structure and implement read-only access methods",
+            "dependencies": [],
+            "details": "1. Create a new module (e.g., `StateManager.js`) that exports a class or singleton object\n2. Define the initial state structure with properties for case information, free text, parameters, and selected language\n3. Implement getter methods to access different parts of the state (e.g., `getCase()`, `getParameters()`, `getSelectedLanguage()`)\n4. Add a method to get the entire state object (e.g., `getState()`)\n5. Ensure the state is immutable when accessed (return copies, not references)\n6. Add JSDoc comments to document the state structure and methods\n7. Test the module by creating instances and verifying getters return expected values",
+            "status": "done",
+            "parentTaskId": 15
+          },
+          {
+            "id": 2,
+            "title": "Implement State Update Methods and Event System",
+            "description": "Add methods to modify state and create an event system to notify listeners of changes",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Create an event system using a publish-subscribe pattern\n2. Implement methods to register and unregister event listeners (e.g., `subscribe()`, `unsubscribe()`)\n3. Add state update methods for each state section (e.g., `updateCase()`, `setParameters()`, `changeLanguage()`)\n4. Ensure each update method creates a new state object rather than mutating the existing one\n5. Trigger appropriate events after state updates with information about what changed\n6. Add validation logic to prevent invalid state updates\n7. Test the update methods and verify events are properly dispatched\n8. Verify that listeners receive notifications when state changes",
+            "status": "done",
+            "parentTaskId": 15
+          },
+          {
+            "id": 3,
+            "title": "Integrate State Manager with Application Components",
+            "description": "Connect the state manager to application components and implement state persistence",
+            "dependencies": [
+              2
+            ],
+            "details": "1. Create helper functions or hooks (if using React) to easily connect components to the state manager\n2. Implement state persistence using localStorage or sessionStorage to maintain state across page reloads\n3. Add methods to serialize and deserialize the state for storage\n4. Create initialization logic to load persisted state on application startup\n5. Add state reset functionality to clear the state when needed\n6. Implement selective state updates to avoid unnecessary re-renders\n7. Add debugging tools/logging for state changes in development mode\n8. Test the integration with actual components to verify they update when state changes\n9. Verify state persistence works correctly across page reloads",
+            "status": "done",
+            "parentTaskId": 15
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Implement Error Handling for JSON Operations",
+        "description": "Add error handling for JSON import and export operations.",
+        "status": "done",
+        "dependencies": [
+          9,
+          10
+        ],
+        "priority": "medium",
+        "details": "Implement error handling for JSON import operations, including validation of the JSON structure and graceful handling of malformed JSON. Display appropriate error messages to the user. Also handle potential errors during JSON export.",
+        "testStrategy": "Test importing various invalid JSON files to ensure appropriate error messages are displayed. Test export with various edge cases to ensure it handles errors gracefully."
+      },
+      {
+        "id": 17,
+        "title": "Implement Render Style Selector Functionality",
+        "description": "Connect the render style selector to the application state and prompt generation.",
+        "status": "done",
+        "dependencies": [
+          2,
+          15
+        ],
+        "priority": "medium",
+        "details": "Add an event listener to the render style selector to update the application state when it changes. Ensure the selected render style is included in the prompt generation and JSON export. The render style should be incorporated into the prompt to guide the AI image generation.",
+        "testStrategy": "Test selecting various render styles and verify they are correctly included in the prompt and JSON export."
+      },
+      {
+        "id": 18,
+        "title": "Implement Local Storage for Session Persistence",
+        "description": "Add local storage to persist the application state within a browser session.",
+        "status": "done",
+        "dependencies": [
+          15
+        ],
+        "priority": "low",
+        "details": "Implement functionality to save the application state to localStorage whenever it changes, and load it when the application starts. This provides a basic form of session persistence without requiring explicit save/load actions from the user.",
+        "testStrategy": "Test closing and reopening the browser to ensure the application state is correctly persisted and restored."
+      },
+      {
+        "id": 19,
+        "title": "Implement GenAI Image Generation Feature",
+        "description": "Connect the GenAI image generation feature to the prompt generation.",
+        "status": "done",
+        "dependencies": [
+          2,
+          15
+        ],
+        "priority": "low",
+        "details": "Implement the click handler for the 'Generate Image' button. When clicked, it should take the current prompt and the API key entered by the user, make a request to a GenAI API (placeholder for future implementation), and display the result in the image-result container. For MVP, this can be a mock implementation that displays a placeholder image or message.",
+        "testStrategy": "Test clicking the 'Generate Image' button with various prompts to ensure the mock implementation works correctly."
+      },
+      {
+        "id": 20,
+        "title": "Optimize Prompt Generation for Performance",
+        "description": "Ensure prompt generation is performant even with many parameters.",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "medium",
+        "details": "Optimize the prompt generation function to ensure it updates within 100ms even with a large number of parameters (e.g., 20-30). Implement debouncing to prevent excessive updates during rapid slider changes.",
+        "testStrategy": "Test prompt generation performance with a large number of parameters and rapid slider changes to ensure it remains responsive."
+      },
+      {
+        "id": 21,
+        "title": "Implement Parameter Validation",
+        "description": "Add validation for parameter names and shade lists.",
+        "status": "done",
+        "dependencies": [
+          5,
+          6
+        ],
+        "priority": "medium",
+        "details": "Implement validation for parameter names and shade lists when adding or editing parameters. Ensure parameter names are unique and not empty, and that shade lists contain at least one value. Display appropriate error messages to the user.",
+        "testStrategy": "Test adding and editing parameters with various invalid inputs to ensure appropriate error messages are displayed and invalid inputs are not accepted."
+      },
+      {
+        "id": 22,
+        "title": "Create Comprehensive Language Files",
+        "description": "Create comprehensive language files for all supported languages.",
+        "status": "done",
+        "dependencies": [
+          11
+        ],
+        "priority": "medium",
+        "details": "Create comprehensive language files for English, Spanish, Danish, Chinese, and Hindi, following the structure in PRD-SEC-015. Ensure all UI elements have translations in all supported languages.",
+        "testStrategy": "Test switching between all supported languages to ensure all UI elements are correctly translated."
+      },
+      {
+        "id": 23,
+        "title": "Implement Responsive Design",
+        "description": "Ensure the application is usable on various screen sizes.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "details": "Implement responsive design to ensure the application is usable on various screen sizes, from desktop to tablet. Focus on ensuring the layout doesn't break on smaller screens, though not necessarily optimized for mobile data entry as per PRD-SEC-007.",
+        "testStrategy": "Test the application on various screen sizes to ensure the layout remains usable and doesn't break."
+      },
+      {
+        "id": 24,
+        "title": "Implement Basic Keyboard Navigation",
+        "description": "Add basic keyboard navigation for accessibility.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "low",
+        "details": "Implement basic keyboard navigation for input fields, buttons, and sliders to improve accessibility. Ensure tab order is logical and that all interactive elements can be accessed and used with keyboard only.",
+        "testStrategy": "Test navigating the application using only the keyboard to ensure all functionality is accessible."
+      },
+      {
+        "id": 25,
+        "title": "Create User Documentation",
+        "description": "Create basic user documentation for the application.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "low",
+        "details": "Create basic user documentation explaining how to use the application, including adding and editing parameters, saving and loading JSON, and using the prompt generation feature. This can be a simple README.md file or a more comprehensive user guide.",
+        "testStrategy": "Have someone unfamiliar with the application review the documentation and attempt to use the application based on it to ensure it is clear and comprehensive."
+      },
+      {
+        "id": 26,
+        "title": "Implement Visual Feedback for User Actions",
+        "description": "Add visual feedback for user actions like saving, loading, and copying.",
+        "status": "done",
+        "dependencies": [
+          3,
+          9,
+          10
+        ],
+        "priority": "low",
+        "details": "Implement visual feedback (e.g., toast notifications, button state changes) for user actions like copying the prompt, saving and loading JSON, and adding or editing parameters. This improves the user experience by providing clear confirmation of actions.",
+        "testStrategy": "Test various user actions to ensure appropriate visual feedback is provided."
+      },
+      {
+        "id": 27,
+        "title": "Optimize Initial Load Performance",
+        "description": "Optimize the application's initial load performance.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "low",
+        "details": "Optimize the application's initial load performance by minimizing the size of JavaScript and CSS files, using efficient DOM manipulation, and implementing lazy loading where appropriate. The goal is to ensure the application loads quickly even on slower connections.",
+        "testStrategy": "Test the application's load time on various connection speeds to ensure it loads quickly."
+      },
+      {
+        "id": 28,
+        "title": "Implement Confirmation Dialogs for Destructive Actions",
+        "description": "Add confirmation dialogs for actions that could result in data loss.",
+        "status": "done",
+        "dependencies": [
+          7,
+          8
+        ],
+        "priority": "low",
+        "details": "Implement confirmation dialogs for destructive actions like deleting parameters, resetting to default parameters, or loading a JSON file that would replace the current state. This prevents accidental data loss.",
+        "testStrategy": "Test various destructive actions to ensure confirmation dialogs are displayed and that canceling prevents the action."
+      },
+      {
+        "id": 29,
+        "title": "Create Automated Tests",
+        "description": "Create automated tests for core functionality.",
+        "status": "pending",
+        "dependencies": [
+          2,
+          9,
+          10,
+          15
+        ],
+        "priority": "low",
+        "details": "Create automated tests for core functionality like prompt generation, JSON import/export, and state management. This ensures that future changes don't break existing functionality.",
+        "testStrategy": "Run the automated tests to ensure they correctly identify issues with the core functionality."
+      },
+      {
+        "id": 30,
+        "title": "Prepare for Deployment",
+        "description": "Prepare the application for deployment to a static hosting platform.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "low",
+        "details": "Prepare the application for deployment to a static hosting platform like Netlify or GitHub Pages. This includes creating a production build, optimizing assets, and ensuring all paths are correct for the target platform.",
+        "testStrategy": "Deploy the application to a test environment and verify that all functionality works correctly in the deployed version."
+      }
+    ],
+    "metadata": {
+      "projectName": "Fantom Generator Implementation",
+      "totalTasks": 30,
+      "sourceFile": "docs/temp_combined_prd.md",
+      "generatedAt": "2023-11-15",
+      "created": "2025-06-22T08:00:56.405Z",
+      "description": "Tasks for master context",
+      "updated": "2025-06-22T09:18:53.868Z"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+# Task ID: 13
+# Title: Implement Case Information Form Functionality
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Connect the case information form fields to the application state.
+# Details:
+Add event listeners to the case information form fields (Title, Case/Journal Number, Date) to update the application state when they change. Ensure these values are included in the JSON export and prompt generation.
+
+# Test Strategy:
+Test entering various values in the case information fields and verify they are correctly included in the prompt and JSON export.
+
+# Subtasks:
+## 1. Create state management for case information fields [done]
+### Dependencies: None
+### Description: Define state variables and update functions for case information fields in the application state
+### Details:
+1. Identify the application state management approach (e.g., React Context, Redux, or simple state)
+2. Add new state variables for case information fields: title, caseNumber, and date
+3. Create appropriate setter functions or actions to update these state values
+4. Ensure the state has appropriate default values
+5. Update the state interface/type definitions if using TypeScript
+6. Test the state management by manually triggering state updates and verifying the state changes correctly
+
+## 2. Connect form fields to state with event listeners [done]
+### Dependencies: 13.1
+### Description: Add event handlers to form fields to update application state when values change
+### Details:
+1. Locate the case information form component in the codebase
+2. Add onChange/onInput event listeners to each form field (Title, Case/Journal Number, Date)
+3. Connect these event listeners to the state update functions created in subtask 1
+4. Ensure proper value binding so form fields reflect current state values
+5. Add appropriate validation if needed (e.g., date format validation)
+6. Test the form by entering values and verifying the application state updates correctly
+7. Verify that changes persist when navigating between different parts of the application
+
+## 3. Include case information in JSON export and prompt generation [done]
+### Dependencies: 13.1, 13.2
+### Description: Update export and prompt generation functionality to include case information fields
+### Details:
+1. Locate the JSON export functionality in the codebase
+2. Modify the export function to include the case information fields (title, caseNumber, date) in the exported JSON structure
+3. Find the prompt generation functionality
+4. Update the prompt template to include the case information fields where appropriate
+5. Test the JSON export by filling the form and verifying the exported JSON contains the case information
+6. Test the prompt generation by verifying case information appears correctly in the generated prompt
+7. Ensure backward compatibility with existing data that might not have these fields
+

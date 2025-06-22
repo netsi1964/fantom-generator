@@ -1,0 +1,11 @@
+# Task ID: 17
+# Title: Implement Render Style Selector Functionality
+# Status: pending
+# Dependencies: 2, 15
+# Priority: medium
+# Description: Connect the render style selector to the application state and prompt generation.
+# Details:
+Add an event listener to the render style selector to update the application state when it changes. Ensure the selected render style is included in the prompt generation and JSON export. The render style should be incorporated into the prompt to guide the AI image generation.
+
+# Test Strategy:
+Test selecting various render styles and verify they are correctly included in the prompt and JSON export.

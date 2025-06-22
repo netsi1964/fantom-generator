@@ -1,0 +1,11 @@
+# Task ID: 14
+# Title: Implement Free Text Input Functionality
+# Status: done
+# Dependencies: 2
+# Priority: high
+# Description: Connect the free text input to the application state and prompt generation.
+# Details:
+Add an event listener to the free text input to update the application state when it changes. Ensure the free text is included in the prompt generation and JSON export.
+
+# Test Strategy:
+Test entering various text in the free text input and verify it is correctly included in the prompt and JSON export.

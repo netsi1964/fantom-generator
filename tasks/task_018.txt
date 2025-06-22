@@ -1,0 +1,11 @@
+# Task ID: 18
+# Title: Implement Local Storage for Session Persistence
+# Status: pending
+# Dependencies: 15
+# Priority: low
+# Description: Add local storage to persist the application state within a browser session.
+# Details:
+Implement functionality to save the application state to localStorage whenever it changes, and load it when the application starts. This provides a basic form of session persistence without requiring explicit save/load actions from the user.
+
+# Test Strategy:
+Test closing and reopening the browser to ensure the application state is correctly persisted and restored.

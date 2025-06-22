@@ -1,0 +1,52 @@
+# Task ID: 15
+# Title: Implement Application State Management
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Create a central state management system for the application.
+# Details:
+Develop a module that manages the application state, including case information, free text, parameters, and selected language. Implement functions to get and update the state, with appropriate event dispatching to notify components of state changes. This will serve as the central source of truth for the application.
+
+# Test Strategy:
+Test various state updates to ensure they are correctly reflected in the UI and that components are notified of changes.
+
+# Subtasks:
+## 1. Create State Store Structure and Basic Getters [done]
+### Dependencies: None
+### Description: Define the core state structure and implement read-only access methods
+### Details:
+1. Create a new module (e.g., `StateManager.js`) that exports a class or singleton object
+2. Define the initial state structure with properties for case information, free text, parameters, and selected language
+3. Implement getter methods to access different parts of the state (e.g., `getCase()`, `getParameters()`, `getSelectedLanguage()`)
+4. Add a method to get the entire state object (e.g., `getState()`)
+5. Ensure the state is immutable when accessed (return copies, not references)
+6. Add JSDoc comments to document the state structure and methods
+7. Test the module by creating instances and verifying getters return expected values
+
+## 2. Implement State Update Methods and Event System [done]
+### Dependencies: 15.1
+### Description: Add methods to modify state and create an event system to notify listeners of changes
+### Details:
+1. Create an event system using a publish-subscribe pattern
+2. Implement methods to register and unregister event listeners (e.g., `subscribe()`, `unsubscribe()`)
+3. Add state update methods for each state section (e.g., `updateCase()`, `setParameters()`, `changeLanguage()`)
+4. Ensure each update method creates a new state object rather than mutating the existing one
+5. Trigger appropriate events after state updates with information about what changed
+6. Add validation logic to prevent invalid state updates
+7. Test the update methods and verify events are properly dispatched
+8. Verify that listeners receive notifications when state changes
+
+## 3. Integrate State Manager with Application Components [done]
+### Dependencies: 15.2
+### Description: Connect the state manager to application components and implement state persistence
+### Details:
+1. Create helper functions or hooks (if using React) to easily connect components to the state manager
+2. Implement state persistence using localStorage or sessionStorage to maintain state across page reloads
+3. Add methods to serialize and deserialize the state for storage
+4. Create initialization logic to load persisted state on application startup
+5. Add state reset functionality to clear the state when needed
+6. Implement selective state updates to avoid unnecessary re-renders
+7. Add debugging tools/logging for state changes in development mode
+8. Test the integration with actual components to verify they update when state changes
+9. Verify state persistence works correctly across page reloads
+

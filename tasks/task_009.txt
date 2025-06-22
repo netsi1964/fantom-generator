@@ -1,0 +1,11 @@
+# Task ID: 9
+# Title: Implement JSON Export Functionality
+# Status: done
+# Dependencies: 4
+# Priority: high
+# Description: Allow users to export the current application state as a JSON file.
+# Details:
+Implement the click handler for the 'Export Data (JSON)' button. When clicked, it should create a JSON object containing the case information, free text, and all parameters (including custom ones). Generate a file named 'fantom-sketch-[case-number]-[date].json' and trigger a download. The JSON structure should follow the format specified in PRD-SEC-006.
+
+# Test Strategy:
+Test exporting with various combinations of parameters, case info, and free text to ensure the JSON file contains all data and follows the correct structure.

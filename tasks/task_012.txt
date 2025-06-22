@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: Create Upload & AI Tab
+# Status: pending
+# Dependencies: 1, 2, 4
+# Priority: low
+# Description: Create a placeholder for the Upload & AI feature as specified in PRD-FEAT-006.
+# Details:
+Implement a tab navigation system to switch between the 'Parameters' view and the 'Upload & AI' view. In the 'Upload & AI' tab, create an interface with an image upload area and an 'Analyze' button. Implement a mock AI function that returns a predefined set of parameter values when the 'Analyze' button is clicked. Connect this to the parameter sliders to update them with the mock values.
+
+# Test Strategy:
+Test uploading various image formats and clicking the 'Analyze' button to ensure the mock AI function runs and updates the parameter sliders correctly.
