@@ -1,6 +1,6 @@
 # Task ID: 23
 # Title: Implement Responsive Design
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: medium
 # Description: Ensure the application is usable on various screen sizes.

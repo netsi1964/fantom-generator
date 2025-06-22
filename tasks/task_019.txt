@@ -1,6 +1,6 @@
 # Task ID: 19
 # Title: Implement GenAI Image Generation Feature
-# Status: pending
+# Status: done
 # Dependencies: 2, 15
 # Priority: low
 # Description: Connect the GenAI image generation feature to the prompt generation.

@@ -1,6 +1,6 @@
 # Task ID: 16
 # Title: Implement Error Handling for JSON Operations
-# Status: pending
+# Status: done
 # Dependencies: 9, 10
 # Priority: medium
 # Description: Add error handling for JSON import and export operations.

@@ -1,6 +1,6 @@
 # Task ID: 6
 # Title: Implement Edit Parameter Functionality
-# Status: pending
+# Status: done
 # Dependencies: 5
 # Priority: medium
 # Description: Allow users to edit existing parameters by clicking on them.

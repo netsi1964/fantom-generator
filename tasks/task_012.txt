@@ -1,6 +1,6 @@
 # Task ID: 12
 # Title: Create Upload & AI Tab
-# Status: pending
+# Status: done
 # Dependencies: 1, 2, 4
 # Priority: low
 # Description: Create a placeholder for the Upload & AI feature as specified in PRD-FEAT-006.

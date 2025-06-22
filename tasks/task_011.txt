@@ -1,6 +1,6 @@
 # Task ID: 11
 # Title: Implement Multilingual UI Support
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: medium
 # Description: Add support for multiple languages in the UI based on the lang.json file.

@@ -1,26 +1,26 @@
 # Development Tasks
 
 ## Project Setup
-- [ ] Initialize repository
-- [ ] Create basic project structure
-- [ ] Add README.md
-- [ ] Add LICENSE
-- [ ] Add .gitignore
-- [ ] Setup basic HTML structure
-- [ ] Add Tailwind CSS
-- [ ] Create initial directory structure for JavaScript modules
+- [x] Initialize repository
+- [x] Create basic project structure
+- [x] Add README.md
+- [x] Add LICENSE
+- [x] Add .gitignore
+- [x] Setup basic HTML structure
+- [x] Add Tailwind CSS
+- [x] Create initial directory structure for JavaScript modules
 
 ## Core Features Implementation
-- [ ] Implement basic UI layout
-- [ ] Create case information form
-- [ ] Implement parameter slider component
-- [ ] Create prompt preview area
-- [ ] Add JSON import/export functionality
-- [ ] Implement parameter management (add/edit/delete)
-- [ ] Add multilingual support
-- [ ] Create Upload & AI tab placeholder
-- [ ] Changing language should update UI
-- [ ] Add en, es, da and chineese languages
+- [x] Implement basic UI layout
+- [x] Create case information form
+- [x] Implement parameter slider component
+- [x] Create prompt preview area
+- [x] Add JSON import/export functionality
+- [x] Implement parameter management (add/edit/delete)
+- [x] Add multilingual support
+- [x] Create Upload & AI tab placeholder
+- [x] Changing language should update UI
+- [x] Add en, es, da and chineese languages
 - [ ] Optimize prompts for AI face generation
 - [ ] Create prompt templates configuration
 - [ ] Add multilingual prompt templates

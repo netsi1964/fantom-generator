@@ -47,4 +47,9 @@
   "cannotDeleteDefault": "Los parámetros por defecto no se pueden eliminar.",
   "exportError": "Error al exportar los datos.",
   "parameterNameExists": "Ya existe un parámetro con el nombre '{name}'."
+  ,"parametersTab": "Parámetros"
+  ,"uploadAiTab": "Subir y IA"
+  ,"uploadImageTitle": "Subir imagen para análisis"
+  ,"clickToUpload": "Haga clic para subir"
+  ,"analyzeButton": "Analizar"
 }

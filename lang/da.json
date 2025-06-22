@@ -47,4 +47,9 @@
   "cannotDeleteDefault": "Standardparametre kan ikke slettes.",
   "exportError": "Fejl ved eksport af data.",
   "parameterNameExists": "En parameter med navnet '{name}' findes allerede."
+  ,"parametersTab": "Parametre"
+  ,"uploadAiTab": "Upload & AI"
+  ,"uploadImageTitle": "Upload billede til analyse"
+  ,"clickToUpload": "Klik for at uploade"
+  ,"analyzeButton": "Analyser"
 }
