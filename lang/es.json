@@ -40,5 +40,8 @@
   "stylePainting": "Pintura",
   "resetParamsButton": "Restablecer Parámetros Predeterminados",
   "resetParamsConfirm": "¿Está seguro de que desea restablecer todos los parámetros a sus valores predeterminados? Esto no se puede deshacer.",
-  "Face Shape": "Forma de la Cara"
-} 
+  "Face Shape": "Forma de la Cara",
+  "aiSectionTitle": "Generación de Imagen AI",
+  "aiHelpText": "Ingrese su clave GenAI y genere una imagen a partir del mensaje.",
+  "generateImageButton": "Generar Imagen"
+}

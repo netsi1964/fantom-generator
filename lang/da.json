@@ -40,5 +40,8 @@
   "stylePainting": "Maleri",
   "resetParamsButton": "Nulstil Standardparametre",
   "resetParamsConfirm": "Er du sikker på, at du vil nulstille alle parametre til deres standardværdier? Dette kan ikke fortrydes.",
-  "Face Shape": "Ansigtform"
-} 
+  "Face Shape": "Ansigtform",
+  "aiSectionTitle": "AI-billedgenerering",
+  "aiHelpText": "Indtast din GenAI-nøgle og generer et billede ud fra prompten.",
+  "generateImageButton": "Generer Billede"
+}
