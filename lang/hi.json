@@ -40,5 +40,8 @@
   "stylePainting": "पेंटिंग",
   "resetParamsButton": "डिफ़ॉल्ट पैरामीटर रीसेट करें",
   "resetParamsConfirm": "क्या आप वाकई सभी पैरामीटर को डिफ़ॉल्ट पर रीसेट करना चाहते हैं? यह वापस नहीं किया जा सकता।",
-  "Face Shape": "चेहरे का आकार"
-} 
+  "Face Shape": "चेहरे का आकार",
+  "aiSectionTitle": "एआई इमेज जेनरेशन",
+  "aiHelpText": "अपनी GenAI कुंजी दर्ज करें और प्रॉम्प्ट से एक छवि बनाएं।",
+  "generateImageButton": "छवि जनरेट करें"
+}

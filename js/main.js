@@ -5,6 +5,7 @@ import { initParameterManager } from './ui/parameterManager.js';
 import { initImportExport } from './importExport.js';
 import { initLanguageManager, setLanguage, getCurrentLanguage } from './languageManager.js';
 import { initStyleSelector } from './ui/styleSelector.js';
+import { initGenAI } from './genaiImage.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('DOM fully loaded and parsed');
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initParameterManager();
   initImportExport();
   initStyleSelector();
+  initGenAI();
 
   // Setup Language Switcher
   const langSelector = document.getElementById('language-select');

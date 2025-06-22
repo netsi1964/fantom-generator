@@ -40,5 +40,8 @@
   "stylePainting": "Painting",
   "resetParamsButton": "Reset Default Parameters",
   "resetParamsConfirm": "Are you sure you want to reset all parameters to their defaults? This cannot be undone.",
-  "Face Shape": "Face Shape"
-} 
+  "Face Shape": "Face Shape",
+  "aiSectionTitle": "AI Image Generation",
+  "aiHelpText": "Enter your GenAI API key and generate an image from the prompt.",
+  "generateImageButton": "Generate Image"
+}

@@ -40,5 +40,8 @@
   "stylePainting": "绘画",
   "resetParamsButton": "重置默认参数",
   "resetParamsConfirm": "您确定要将所有参数重置为默认值吗？此操作无法撤消。",
-  "Face Shape": "脸型"
-} 
+  "Face Shape": "脸型",
+  "aiSectionTitle": "AI图像生成",
+  "aiHelpText": "输入您的GenAI密钥，根据提示生成图像。",
+  "generateImageButton": "生成图像"
+}

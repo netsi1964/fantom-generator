@@ -8,7 +8,7 @@ const copyButton = document.getElementById('copy-prompt-button');
  * Generates the prompt string based on current parameters, case info, and free text.
  * @returns {string} The generated prompt string.
  */
-function generatePrompt() {
+export function generatePrompt() {
   const parameters = getParameters();
   const caseInfo = getCaseInfo();
   const renderStyle = getRenderStyle();

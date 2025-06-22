@@ -109,10 +109,13 @@
     </div>
   </div>
 
-  <!-- Placeholder for AI Image Analysis Feature -->
-  <div class="container mx-auto mt-6 p-4 bg-gray-100 border-dashed border-2 border-gray-300 rounded">
-    <h2 class="text-lg font-semibold text-gray-500 mb-2">Future AI Image Analysis</h2>
-    <p class="text-sm text-gray-500">[This section will contain UI elements for AI-assisted image generation/analysis based on the generated prompt.]</p>
+  <!-- GenAI Image Generation Feature -->
+  <div id="ai-image-container" class="container mx-auto mt-6 p-4 bg-gray-100 border-dashed border-2 border-gray-300 rounded">
+    <h2 data-translate="aiSectionTitle" class="text-lg font-semibold text-gray-500 mb-2">AI Image Generation</h2>
+    <p data-translate="aiHelpText" class="text-sm text-gray-500 mb-4">Enter your GenAI API key and generate an image from the prompt.</p>
+    <input id="genai-key-input" type="password" class="mb-2 p-2 border rounded w-full" placeholder="GenAI API Key">
+    <button data-translate="generateImageButton" id="generate-image-button" class="mb-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Generate Image</button>
+    <div id="image-result" class="mt-4"></div>
   </div>
 
   <!-- App content will go here -->
